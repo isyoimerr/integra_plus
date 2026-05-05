@@ -16,6 +16,7 @@ Describe brevemente qué hace este PR.
 - [ ] Probé los cambios localmente (`npm run dev`)
 - [ ] Sin console.log() innecesarios
 - [ ] Commits con mensajes claros
+- [ ] Verifique el estado de Git antes de subir cambios
 - [ ] Mi rama está actualizada con `main` o `develop`
 - [ ] No incluyo archivos sensibles (`.env`, `node_modules`)
 
