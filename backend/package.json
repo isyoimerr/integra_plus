@@ -1,0 +1,36 @@
+{
+  "name": "integra-plus-backend",
+  "version": "1.0.0",
+  "description": "Backend para plataforma INTEGRA+",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js",
+    "seed": "node prisma/seed.js",
+    "migrate": "prisma migrate dev --name init",
+    "studio": "prisma studio"
+  },
+  "keywords": [
+    "integra",
+    "education",
+    "calculus"
+  ],
+  "author": "Team INTEGRA+",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^5.9.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "joi": "^17.11.1",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.22.3",
+    "nodemailer": "^8.0.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "prisma": "^5.9.1"
+  }
+}

@@ -1,0 +1,156 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  usuId         Int        @id @default(autoincrement()) @map("usu_id")
+  usuNombre     String     @map("usu_nombre") @db.VarChar(100)
+  usuCorreo     String     @unique @map("usu_correo") @db.VarChar(150)
+  usuContrasena String     @map("usu_contrasena") @db.Text
+  usuRol        String     @default("estudiante") @map("usu_rol") @db.VarChar(20)
+  usuTema       String     @default("light") @map("usu_tema") @db.VarChar(20)
+  usuFechaReg   DateTime   @default(now()) @map("usu_fecha_reg")
+  estudiante    Estudiante?
+  docente       Docente?
+  codigosRecuperacion CodigoRecuperacion[] @relation("UsuarioCodigosRecuperacion")
+
+  @@map("usuarios")
+}
+
+model Estudiante {
+  estId          Int           @id @default(autoincrement()) @map("est_id")
+  estUsuId       Int           @unique @map("est_usu_id")
+  usuario        Usuario       @relation(fields: [estUsuId], references: [usuId], onDelete: Cascade)
+  estPuntaje     Int           @default(0) @map("est_puntaje")
+  estRachaDias   Int           @default(0) @map("est_racha_dias")
+  estNivelActual Int           @default(0) @map("est_nivel_actual")
+  estUltimoAcc   DateTime?     @map("est_ultimo_acc")
+  docEstudiantes DocEstudiante[]
+  progreso       Progreso[]
+  resultados     Resultado[]
+  estadoSigma    EstadoSigma?
+
+  @@map("estudiantes")
+}
+
+model Docente {
+  docId           Int             @id @default(autoincrement()) @map("doc_id")
+  docUsuId        Int             @unique @map("doc_usu_id")
+  usuario         Usuario         @relation(fields: [docUsuId], references: [usuId], onDelete: Cascade)
+  docDepartamento String?         @map("doc_departamento") @db.VarChar(100)
+  docCodigo       String?         @unique @map("doc_codigo") @db.VarChar(20)
+  docEstudiantes  DocEstudiante[]
+
+  @@map("docentes")
+}
+
+model DocEstudiante {
+  deId        Int        @id @default(autoincrement()) @map("de_id")
+  deDocId     Int        @map("de_doc_id")
+  docente     Docente    @relation(fields: [deDocId], references: [docId], onDelete: Cascade)
+  deEstId     Int        @map("de_est_id")
+  estudiante  Estudiante @relation(fields: [deEstId], references: [estId], onDelete: Cascade)
+  deFechaAsig DateTime   @default(now()) @map("de_fecha_asig")
+
+  @@map("doc_estudiante")
+}
+
+model Nivel {
+  nivId           Int           @id @default(autoincrement()) @map("niv_id")
+  nivNombre       String        @map("niv_nombre") @db.VarChar(100)
+  nivSubtitulo    String?       @map("niv_subtitulo") @db.VarChar(100)
+  nivModulo       Int           @map("niv_modulo")
+  nivDificultad   Int           @default(1) @map("niv_dificultad")
+  nivPrerequisito Int?          @map("niv_prerequisito")
+  nivelPrevio     Nivel?        @relation("Prerequisito", fields: [nivPrerequisito], references: [nivId])
+  nivelesHijos    Nivel[]       @relation("Prerequisito")
+  nivColor        String        @default("#2E7D32") @map("niv_color") @db.VarChar(20)
+  nivMsgSigma     String?       @map("niv_msg_sigma") @db.Text
+  nivDesbloqueado Boolean       @default(false) @map("niv_desbloqueado")
+  ejercicios      Ejercicio[]
+  progreso        Progreso[]
+  estadosSigma    EstadoSigma[]
+
+  @@map("niveles")
+}
+
+model Ejercicio {
+  ejId           Int         @id @default(autoincrement()) @map("ej_id")
+  ejNivId        Int         @map("ej_niv_id")
+  nivel          Nivel       @relation(fields: [ejNivId], references: [nivId], onDelete: Cascade)
+  ejEnunciado    String      @map("ej_enunciado") @db.Text
+  ejFormula      String?     @map("ej_formula") @db.Text
+  ejTipo         String      @default("multiple_choice") @map("ej_tipo") @db.VarChar(30)
+  ejOpciones     String?     @map("ej_opciones") @db.Text
+  ejRespuesta    String      @map("ej_respuesta") @db.Text
+  ejPista        String?     @map("ej_pista") @db.Text
+  ejExplicacion  String?     @map("ej_explicacion") @db.Text
+  ejXpRecompensa Int         @default(15) @map("ej_xp_recompensa")
+  ejDificultad   Int         @default(1) @map("ej_dificultad")
+  ejOrden        Int         @default(1) @map("ej_orden")
+  resultados     Resultado[]
+
+  @@map("ejercicios")
+}
+
+model Progreso {
+  proId         Int        @id @default(autoincrement()) @map("pro_id")
+  proEstId      Int        @map("pro_est_id")
+  estudiante    Estudiante @relation(fields: [proEstId], references: [estId], onDelete: Cascade)
+  proNivId      Int        @map("pro_niv_id")
+  nivel         Nivel      @relation(fields: [proNivId], references: [nivId], onDelete: Cascade)
+  proPorcentaje Float      @default(0) @map("pro_porcentaje")
+  proCompletado Boolean    @default(false) @map("pro_completado")
+  proIntentos   Int        @default(0) @map("pro_intentos")
+  proErrores    Int        @default(0) @map("pro_errores")
+  proPuntos     Int        @default(0) @map("pro_puntos")
+
+  @@unique([proEstId, proNivId])
+  @@map("progreso")
+}
+
+model Resultado {
+  resId        Int        @id @default(autoincrement()) @map("res_id")
+  resEstId     Int        @map("res_est_id")
+  estudiante   Estudiante @relation(fields: [resEstId], references: [estId], onDelete: Cascade)
+  resEjId      Int        @map("res_ej_id")
+  ejercicio    Ejercicio  @relation(fields: [resEjId], references: [ejId], onDelete: Cascade)
+  resRespuesta String?    @map("res_respuesta") @db.Text
+  resCorrecto  Boolean    @map("res_correcto")
+  resTiempoSeg Int        @default(0) @map("res_tiempo_seg")
+  resIntento   Int        @default(1) @map("res_intento")
+  resTimestamp DateTime   @default(now()) @map("res_timestamp")
+
+  @@map("resultados")
+}
+
+model EstadoSigma {
+  sigId          Int        @id @default(autoincrement()) @map("sig_id")
+  sigEstId       Int        @unique @map("sig_est_id")
+  estudiante     Estudiante @relation(fields: [sigEstId], references: [estId], onDelete: Cascade)
+  sigModo        String     @default("guia") @map("sig_modo") @db.VarChar(20)
+  sigErroresCons Int        @default(0) @map("sig_errores_cons")
+  sigTInactivo   BigInt     @default(0) @map("sig_t_inactivo")
+  sigNivActual   Int?       @map("sig_niv_actual")
+  nivelActual    Nivel?     @relation(fields: [sigNivActual], references: [nivId])
+  sigUltimoMsg   String?    @map("sig_ultimo_msg") @db.Text
+
+  @@map("estado_sigma")
+}
+
+model CodigoRecuperacion {
+  recId         Int      @id @default(autoincrement()) @map("rec_id")
+  recUsuId      Int      @map("rec_usu_id")
+  usuario       Usuario  @relation("UsuarioCodigosRecuperacion", fields: [recUsuId], references: [usuId], onDelete: Cascade)
+  recCodigo     String   @map("rec_codigo") @db.VarChar(6)
+  recExpiracion DateTime @map("rec_expiracion")
+  recUsado      Boolean  @default(false) @map("rec_usado")
+  recFechaCre   DateTime @default(now()) @map("rec_fecha_cre")
+
+  @@map("codigos_recuperacion")
+}

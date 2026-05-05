@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pkill -f \"node.*server.js\")",
+      "Bash(NODE_ENV=development node server.js)",
+      "Bash(node server.js)",
+      "Bash(curl -s -X POST http://localhost:5000/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"docente@demo.com\",\"password\":\"password\"}')",
+      "Bash(curl -s -X POST http://localhost:5000/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"yoimer938@gmail.com\",\"password\":\"equac2110Y\"}')",
+      "Bash(mysql -u root integra_plus -e \"SELECT usu_id, usu_nombre, usu_correo, usu_rol FROM usuarios;\")",
+      "Bash(pkill -f \"node server.js\")",
+      "Read(//home/ing-ospino/.claude/projects/**)",
+      "Bash(xargs cat *)"
+    ],
+    "additionalDirectories": [
+      "/home/ing-ospino/.claude/projects/-home-ing-ospino-integra-plus"
+    ]
+  }
+}

@@ -1,0 +1,101 @@
+Tipo de presentación
+
+ Proyecto            
+ Gamificación
+
+Integrantes del grupo: 
+#
+Nombre completo del estudiante
+Código
+Programa
+Semestre
+1
+Alberto Mario Salcedo Buitrago
+202513876311
+Ingeniería de Datos e Inteligencia Artificial
+3
+2
+Keiner Yesid Álvarez Vergara
+202514076813
+
+Ingeniería de Datos e Inteligencia Artificial
+3
+3
+Santiago José Florez Hernández
+202514076309
+
+Ingeniería de Datos e Inteligencia Artificial
+3
+4
+Sebastián José Mesa Hamburger
+202514076285
+
+Ingeniería de Datos e Inteligencia Artificial
+3
+5
+Yoimer de Jesús Ospino Zambrano
+202514075892
+
+Ingeniería de Datos e Inteligencia Artificial
+3
+
+Correo institucional de un (1) estudiante
+yoimer.ospino@unisimon.edu.co
+
+Profesor(es)
+Área de trabajo
+
+Manuel Moisés Molina Torregrosa
+
+Cálculo Integral
+
+Correo institucional de un (1) profesor
+manuel.molina@unisimon.edu.co
+
+Cursos
+
+Nombre del curso
+Código del curso
+Cálculo Integral
+BAQ CÁLCULO INTEGRAL - 10107 - T02 - 2026 - 1
+
+    1. Título del proyecto o gamificación
+INTEGRA+: Plataforma educativa interactiva basada en gamificación para el aprendizaje del cálculo integral.
+
+    2. ODS al que tributa 
+ODS 4 - Educación de calidad | ODS 9 - Industria, innovación e infraestructura | ODS 10 - Reducción de las desigualdades.
+
+    3. Resumen 
+En la Universidad Simón Bolívar (UNISIMON), el cálculo integral representa una de las asignaturas con mayor índice de reprobación y deserción en los programas académicos de la universidad. Los métodos tradicionales de enseñanza, basados en clases magistrales y ejercicios repetitivos, no logran adaptarse a los diferentes estilos de aprendizaje ni generar entornos interactivos que faciliten la apropiación real del conocimiento. Esta situación genera bajos niveles de rendimiento académico, desinterés por la asignatura y dificultades para aplicar los conceptos en contextos profesionales reales.
+Ante esta problemática, surge INTEGRA+, una plataforma educativa interactiva basada en gamificación, es decir, el uso estratégico de elementos motivacionales como niveles, logros y retroalimentación inmediata dentro de un entorno académico serio. INTEGRA+ está diseñada específicamente para transformar la manera en que los estudiantes de la Universidad Simón Bolívar aprenden cálculo integral, incorporando visualización gráfica de funciones e integrales, ejercicios progresivos y recompensas por avance, con el propósito de mejorar la comprensión, la motivación y el desempeño académico.
+Uno de los elementos más innovadores de la plataforma es SIGMA (Σ), un asistente virtual con forma del símbolo matemático sigma, que acompaña al estudiante durante toda su experiencia de aprendizaje. SIGMA celebra los logros, ofrece apoyo en los momentos de error, detecta inactividad y se comunica de forma cercana y motivadora, creando un vínculo emocional entre el estudiante y el proceso de aprendizaje. Este acompañamiento continuo responde directamente a uno de los factores más críticos identificados en la problemática: la baja motivación y el abandono temprano de la asignatura.
+El sistema está diseñado para dos tipos de usuarios: los estudiantes, quienes acceden a contenidos interactivos, resuelven ejercicios y avanzan progresivamente por niveles; y los docentes, quienes pueden monitorear el avance individual y grupal, identificar dificultades específicas y tomar decisiones pedagógicas basadas en datos reales. INTEGRA+ nace en UNISIMON como respuesta concreta a una problemática real: transformar profundamente la manera en que se aprende y se enseña el cálculo integral, poniendo la tecnología al servicio de una educación más equitativa, innovadora y de calidad.
+
+    4. Contribución de su proyecto a la sostenibilidad
+
+INTEGRA+ es una solución que trasciende el aula de clase. Su impacto no se limita a mejorar el aprendizaje del cálculo integral, sino que genera contribuciones concretas y sostenibles en las dimensiones social, económica y ambiental, alineadas directamente con los Objetivos de Desarrollo Sostenible 4, 9 y 10. Dimensión social El impacto más significativo de INTEGRA+ se encuentra en su contribución al bienestar académico y la equidad educativa. En los programas académicos de la Universidad Simón Bolívar, la reprobación en cálculo integral no es solo un problema académico — es una de las principales causas de deserción universitaria, con consecuencias directas sobre el proyecto de vida de los estudiantes y sus familias. Al ofrecer una plataforma adaptable a diferentes estilos de aprendizaje, INTEGRA+ democratiza el acceso a una experiencia educativa de calidad, independientemente del ritmo o las condiciones particulares de cada estudiante. El asistente virtual SIGMA (Σ) cumple un rol fundamental en esta dimensión: su acompañamiento continuo, su capacidad de detectar inactividad y su comunicación motivadora atienden directamente el factor emocional del aprendizaje, reduciendo la ansiedad matemática y fortaleciendo la permanencia estudiantil. Para validar este impacto, el proyecto ha diseñado encuestas dirigidas a estudiantes de los programas académicos de la Universidad Simón Bolívar que incluyen cálculo integral en su plan de estudios, así como a profesores del área de matemáticas y cálculo, y público general. Este proceso de validación forma parte del componente estadístico del proyecto, que se desarrolla de manera transversal como proyecto integrador de las asignaturas de Cálculo Integral, Estructura de Datos, Base de Datos y Estadística. Actualmente la recolección se encuentra en fase activa y requiere el apoyo de los canales institucionales de la universidad — redes sociales, correo institucional y coordinaciones de programa — para alcanzar una muestra representativa. Los resultados preliminares serán presentados como parte de la evidencia del proyecto en Expo
+CIEN 2026. Para los docentes, la plataforma representa además una herramienta de seguimiento que permite identificar dificultades específicas y actuar pedagógicamente con datos reales. Esto contribuye directamente al ODS 4 — Educación de calidad y al ODS 10 — Reducción de las desigualdades. Dimensión económica La reprobación universitaria tiene un costo económico real y frecuentemente invisibilizado. Repetir una asignatura implica para el estudiante y su familia el pago de un semestre adicional, la postergación de su ingreso al mercado laboral y, en muchos casos, el abandono definitivo de la carrera. INTEGRA+ actúa como un mecanismo de prevención de ese costo. Al mejorar la comprensión y la motivación desde etapas tempranas, reduce la probabilidad de reprobación y, con ello, el impacto económico sobre las familias. Adicionalmente, al ser una plataforma digital escalable, puede extenderse a otros programas y universidades sin una inversión proporcional, maximizando su alcance con recursos sostenibles. Esto se alinea con el ODS 9 — Industria, innovación e infraestructura y refuerza el ODS 10, al ofrecer una alternativa accesible frente a costosas tutorías privadas. Dimensión ambiental Como plataforma completamente digital, INTEGRA+ contribuye a la reducción del impacto ambiental asociado a la enseñanza tradicional, sustituyendo fotocopias, guías impresas y talleres en papel por contenidos interactivos digitales. Sin embargo, su aporte ambiental más distintivo radica en la reducción de la deserción estudiantil: cada estudiante que evita repetir un semestre representa una reducción concreta en el consumo de recursos universitarios — salones, energía eléctrica, materiales y servicios — que de otro modo serían utilizados innecesariamente. INTEGRA+ convierte la eficiencia académica en eficiencia ambiental. INTEGRA+ demuestra que la innovación tecnológica en educación no solo transforma el aprendizaje — también construye un futuro más justo, más eficiente y sostenible para estudiantes, instituciones y comunidades.
+
+    5. Módulo estadístico y análisis de aprendizaje
+
+INTEGRA+ incluye un componente estadístico diseñado para convertir la interacción educativa en datos útiles para estudiantes y docentes. Actualmente la plataforma almacena resultados de ejercicios, porcentaje de avance por nivel, puntaje acumulado, intentos, errores y racha de días de actividad. Esta información permite generar métricas de rendimiento y detectar estudiantes en riesgo, aunque en la etapa inicial de desarrollo el énfasis está en la recolección básica de datos más que en el análisis avanzado.
+
+Las métricas clave que soporta el proyecto son:
+- Tasa de aciertos por nivel y tipo de ejercicio.
+- Porcentaje de progreso y niveles completados por estudiante.
+- Número de intentos y errores acumulados para cada nivel.
+- Puntos ganados y racha de días con actividad.
+- Identificación de estudiantes en riesgo con base en progreso menor al 40 %.
+
+Para ExpoCIEN 2026 se propone presentar un dashboard de análisis que incluya visualizaciones de:
+- Progreso de grupos y estudiantes individuales.
+- Comparación de niveles con mayor índice de dificultad.
+- Tendencias de engagement (frecuencia de uso y continuidad diaria).
+- Alertas tempranas para docentes sobre alumnos con bajo avance o alto número de errores.
+
+Además, el proyecto integra la recolección de datos cualitativos a través de encuestas y validaciones con docentes, lo que complementa el análisis cuantitativo con percepción real del impacto en el aprendizaje. Esta doble aproximación fortalece la presentación ante ExpoCIEN, mostrando que INTEGRA+ no sólo motiva, sino que también produce evidencia estadística de mejora educativa.
+
+    6. Contribución de su proyecto a la sostenibilidad
+
+INTEGRA+ es una solución que trasciende el aula de clase. Su impacto no se limita a mejorar el aprendizaje del cálculo integral, sino que genera contribuciones concretas y sostenibles en las dimensiones social, económica y ambiental, alineadas directamente con los Objetivos de Desarrollo Sostenible 4, 9 y 10. Dimensión social El impacto más significativo de INTEGRA+ se encuentra en su contribución al bienestar académico y la equidad educativa. En los programas académicos de la Universidad Simón Bolívar, la reprobación en cálculo integral no es solo un problema académico — es una de las principales causas de deserción universitaria, con consecuencias directas sobre el proyecto de vida de los estudiantes y sus familias. Al ofrecer una plataforma adaptable a diferentes estilos de aprendizaje, INTEGRA+ democratiza el acceso a una experiencia educativa de calidad, independientemente del ritmo o las condiciones particulares de cada estudiante. El asistente virtual SIGMA (Σ) cumple un rol fundamental en esta dimensión: su acompañamiento continuo, su capacidad de detectar inactividad y su comunicación motivadora atienden directamente el factor emocional del aprendizaje, reduciendo la ansiedad matemática y fortaleciendo la permanencia estudiantil. Para validar este impacto, el proyecto ha diseñado encuestas dirigidas a estudiantes de los programas académicos de la Universidad Simón Bolívar que incluyen cálculo integral en su plan de estudios, así como a profesores del área de matemáticas y cálculo, y público general. Este proceso de validación forma parte del componente estadístico del proyecto, que se desarrolla de manera transversal como proyecto integrador de las asignaturas de Cálculo Integral, Estructura de Datos, Base de Datos y Estadística. Actualmente la recolección se encuentra en fase activa y requiere el apoyo de los canales institucionales de la universidad — redes sociales, correo institucional y coordinaciones de programa — para alcanzar una muestra representativa. Los resultados preliminares serán presentados como parte de la evidencia del proyecto en Expo
+CIEN 2026. Para los docentes, la plataforma representa además una herramienta de seguimiento que permite identificar dificultades específicas y actuar pedagógicamente con datos reales. Esto contribuye directamente al ODS 4 — Educación de calidad y al ODS 10 — Reducción de las desigualdades. Dimensión económica La reprobación universitaria tiene un costo económico real y frecuentemente invisibilizado. Repetir una asignatura implica para el estudiante y su familia el pago de un semestre adicional, la postergación de su ingreso al mercado laboral y, en muchos casos, el abandono definitivo de la carrera. INTEGRA+ actúa como un mecanismo de prevención de ese costo. Al mejorar la comprensión y la motivación desde etapas tempranas, reduce la probabilidad de reprobación y, con ello, el impacto económico sobre las familias. Adicionalmente, al ser una plataforma digital escalable, puede extenderse a otros programas y universidades sin una inversión proporcional, maximizando su alcance con recursos sostenibles. Esto se alinea con el ODS 9 — Industria, innovación e infraestructura y refuerza el ODS 10, al ofrecer una alternativa accesible frente a costosas tutorías privadas. Dimensión ambiental Como plataforma completamente digital, INTEGRA+ contribuye a la reducción del impacto ambiental asociado a la enseñanza tradicional, sustituyendo fotocopias, guías impresas y talleres en papel por contenidos interactivos digitales. Sin embargo, su aporte ambiental más distintivo radica en la reducción de la deserción estudiantil: cada estudiante que evita repetir un semestre representa una reducción concreta en el consumo de recursos universitarios — salones, energía eléctrica, materiales y servicios — que de otro modo serían utilizados innecesariamente. INTEGRA+ convierte la eficiencia académica en eficiencia ambiental. INTEGRA+ demuestra que la innovación tecnológica en educación no solo transforma el aprendizaje — también construye un futuro más justo, más eficiente y sostenible para estudiantes, instituciones y comunidades.

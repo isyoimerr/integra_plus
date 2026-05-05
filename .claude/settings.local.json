@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.anthropic.com)",
+      "Read(//tmp/**)",
+      "Bash(tar tf *)",
+      "Bash(tar xf *)",
+      "Bash(cat /tmp/integra/project/integra_components.jsx)",
+      "Bash(cat /tmp/integra/project/integra_onboarding.jsx)",
+      "Bash(cat /tmp/integra/project/integra_screens.jsx)",
+      "Bash(cat /tmp/integra/project/integra_level_screens.jsx)",
+      "Bash(cat /tmp/integra/project/integra_admin_screens.jsx)",
+      "Bash(npm install *)",
+      "Bash(npx vite *)",
+      "Bash(npm init *)",
+      "Bash(npx tailwindcss *)",
+      "Bash(./node_modules/.bin/tailwindcss init *)"
+    ]
+  }
+}
