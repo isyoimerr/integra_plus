@@ -26,6 +26,7 @@ import LevelFaseBScreen     from './screens/level/LevelFaseBScreen';
 import ResultCorrectScreen  from './screens/level/ResultCorrectScreen';
 import ResultWrongScreen    from './screens/level/ResultWrongScreen';
 import LevelCompleteScreen  from './screens/level/LevelCompleteScreen';
+import LevelDemoScreen      from './screens/level/LevelDemoScreen';
 import ProfileScreen        from './screens/ProfileScreen';
 
 // Teacher
@@ -76,6 +77,7 @@ function AppRoutes() {
         <Route path="/level/result-correct" element={<ProtectedRoute><ResultCorrectScreen /></ProtectedRoute>} />
         <Route path="/level/result-wrong"   element={<ProtectedRoute><ResultWrongScreen /></ProtectedRoute>} />
         <Route path="/level/complete"       element={<ProtectedRoute><LevelCompleteScreen /></ProtectedRoute>} />
+        <Route path="/level/demo"           element={<ProtectedRoute><LevelDemoScreen /></ProtectedRoute>} />
         <Route path="/profile"      element={<ProtectedRoute><ProfileScreen /></ProtectedRoute>} />
 
         {/* Teacher */}
