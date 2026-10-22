@@ -1,21 +1,34 @@
 @import "tailwindcss";
 
+@theme {
+  --font-size-xs: 1rem;
+  --font-size-sm: 1.125rem;
+  --font-size-base: 1.25rem;
+  --font-size-lg: 1.375rem;
+  --font-size-xl: 1.625rem;
+  --font-size-2xl: 1.875rem;
+  --color-black: #000000;
+}
+
 /* Reset */
 *, *::before, *::after { box-sizing: border-box; }
 
 body {
   font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
   background: #D0D5DD;
   min-height: 100vh;
+  color: #000000;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::-webkit-scrollbar { width: 0; height: 0; }
 button, input, textarea, select { font-family: 'Inter', sans-serif; }
 
 /* KaTeX overrides — tamaño legible */
-.katex { font-size: 1.25em !important; }
+.katex { font-size: 1.35em !important; }
 .katex-display { margin: 0 !important; }
-.katex-display > .katex { font-size: 1.4em !important; }
+.katex-display > .katex { font-size: 1.55em !important; }
 
 /* Animations */
 @keyframes levelPulse {
@@ -48,3 +61,55 @@ button, input, textarea, select { font-family: 'Inter', sans-serif; }
 .screen-enter { animation: screenIn 0.25s ease both; }
 .pop-in       { animation: popIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both; }
 .fade-up      { animation: fadeSlideUp 0.45s ease both; }
+
+/* BUTTON INTERACTIONS GLOBAL */
+button {
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+button:active {
+  animation: buttonActive 0.3s ease-out;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* INPUT FOCUS ANIMATIONS */
+input, textarea, select {
+  transition: all 0.2s ease;
+}
+
+input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
+}
+
+/* CARD HOVER EFFECTS */
+.card, [role="region"] {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* SMOOTH SCROLLING */
+html {
+  scroll-behavior: smooth;
+}
+
+/* FOCUS VISIBLE STYLES */
+*:focus-visible {
+  outline-offset: 2px;
+  outline: 2px solid #2E7D32;
+}
+
+/* LOADING STATE */
+.loading {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* DISABLED STATE */
+[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

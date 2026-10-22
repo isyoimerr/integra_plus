@@ -34,15 +34,15 @@ NODE_ENV=development
 
 ```bash
 # En la raíz del proyecto
-npm install
+npm run install-all
 
-# Ejecutar backend y frontend simultáneamente
-npm run dev
+# Iniciar todo con el script inteligente
+./start.sh
 ```
 
 **Verificar que todo funciona:**
-- Frontend: http://localhost:5173 (debe cargar)
-- Backend: http://localhost:5000/api/health (o similar)
+- Abre la URL que imprima el script para el frontend (por ejemplo, http://localhost:5173 o el puerto alternativo que muestre)
+- Backend: abre el health check en el puerto que imprima el script, por ejemplo http://localhost:5000/health
 
 ## 📚 Modelos de Base de Datos
 

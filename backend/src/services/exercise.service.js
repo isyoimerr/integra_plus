@@ -36,7 +36,17 @@ export const exerciseService = {
     const ej = await prisma.ejercicio.findUnique({ where: { ejId: exerciseId } });
     if (!ej) throw new Error('Ejercicio no encontrado');
 
-    const correcto = userAnswer === ej.ejRespuesta;
+    // Convertir respuesta del usuario (letra A, B, C...) a valor real de opción
+    let respuestaAVerificar = userAnswer;
+    if (userAnswer && /^[A-Z]$/.test(userAnswer)) {
+      const opciones = JSON.parse(ej.ejOpciones || '[]');
+      const indice = userAnswer.charCodeAt(0) - 65; // A=0, B=1, C=2...
+      if (indice >= 0 && indice < opciones.length) {
+        respuestaAVerificar = opciones[indice];
+      }
+    }
+
+    const correcto = respuestaAVerificar === ej.ejRespuesta;
 
     if (estudianteId) {
       await prisma.resultado.create({
@@ -54,6 +64,18 @@ export const exerciseService = {
           where: { estId: estudianteId },
           data:  { estPuntaje: { increment: ej.ejXpRecompensa } },
         });
+        await prisma.estadoSigma.update({
+          where: { sigEstId: estudianteId },
+          data:  { sigErroresCons: 0 },
+        });
+      } else {
+        const sigma = await prisma.estadoSigma.findUnique({ where: { sigEstId: estudianteId } });
+        if (sigma) {
+          await prisma.estadoSigma.update({
+            where: { sigEstId: estudianteId },
+            data:  { sigErroresCons: { increment: 1 } },
+          });
+        }
       }
     }
 

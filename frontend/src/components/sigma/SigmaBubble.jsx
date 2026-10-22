@@ -13,18 +13,18 @@ export default function SigmaBubble({ state = 'neutral', children }) {
   const { t } = useTheme();
   const c = PALETTES[state] || PALETTES.neutral;
   return (
-    <div style={{
-      display: 'flex', gap: 12, alignItems: 'flex-start',
-      padding: '14px 16px', borderRadius: 14, marginBottom: 16,
-      borderLeft: `3px solid ${c.border}`, background: c.bg, transition: 'all 0.3s',
-    }}>
-      <SigmaLogo state={state} size={38} />
+    <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: 6, borderRadius: 16, marginBottom: 12, transition: 'all 0.3s' }}>
+      <div style={{ flexShrink: 0, marginLeft: 6 }}>
+        <SigmaLogo state={state} size={34} />
+      </div>
       <div style={{ flex: 1 }}>
-        <div style={{ fontSize: 11, fontWeight: 700, color: c.nameColor, marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.6px' }}>
-          SIGMA
-        </div>
-        <div style={{ fontSize: 15, color: t.text2, lineHeight: 1.65, fontStyle: 'italic' }}>
-          {children}
+        <div style={{ background: t.cardBg, padding: '12px 14px', borderRadius: 12, borderLeft: `3px solid ${c.border}`, boxShadow: '0 10px 30px rgba(0,0,0,0.25)', color: t.text, minWidth: 220 }}>
+          <div style={{ fontSize: 12, fontWeight: 800, color: c.nameColor, marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.6px' }}>
+            SIGMA
+          </div>
+          <div style={{ fontSize: 15, color: t.text2, lineHeight: 1.6, fontStyle: 'italic', whiteSpace: 'pre-line' }}>
+            {children}
+          </div>
         </div>
       </div>
     </div>

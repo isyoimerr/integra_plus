@@ -28,8 +28,18 @@ const mapProgreso = (p) => ({
 
 export const levelService = {
   getAll: async () => {
-    const niveles = await prisma.nivel.findMany({ orderBy: { nivModulo: 'asc' } });
-    return niveles.map(mapNivel);
+    const niveles = await prisma.nivel.findMany({ orderBy: [{ nivModulo: 'asc' }, { nivId: 'asc' }] });
+    const uniqueNiveles = [];
+    const seenModules = new Set();
+
+    for (const nivel of niveles) {
+      if (!seenModules.has(nivel.nivModulo)) {
+        seenModules.add(nivel.nivModulo);
+        uniqueNiveles.push(nivel);
+      }
+    }
+
+    return uniqueNiveles.map(mapNivel);
   },
 
   getProgress: async (estudianteId) => {
@@ -49,6 +59,15 @@ export const levelService = {
       include: { ejercicios: true },
     });
     if (!nivel) throw new Error('Nivel no encontrado');
+
+    if (nivel.nivPrerequisito) {
+      const prereqProgress = await prisma.progreso.findUnique({
+        where: { proEstId_proNivId: { proEstId: estudianteId, proNivId: nivel.nivPrerequisito } },
+      });
+      if (!prereqProgress?.proCompletado) {
+        throw new Error('Este nivel está bloqueado. Completa el nivel anterior primero.');
+      }
+    }
 
     const total    = nivel.ejercicios.length;
     const xpGanado = nivel.ejercicios.reduce((s, e) => s + e.ejXpRecompensa, 0);

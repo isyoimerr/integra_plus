@@ -20,13 +20,13 @@ export default function LevelNode({ status, number, title, stars = 0, onClick })
         animation: isActive ? 'levelPulse 2.2s ease-in-out infinite' : 'none',
         transition: 'all 0.25s ease',
       }}>
-        {isDone ? '✓' : isActive ? number : '🔒'}
+        {isDone ? '✓' : isActive ? number : '◆'}
       </div>
       <div style={{ textAlign: 'center', maxWidth: 110 }}>
         <div style={{ fontSize: 13, fontWeight: 600, color: isLocked ? t.text3 : t.text, lineHeight: 1.3 }}>{title}</div>
         {isDone   && <div style={{ fontSize: 14, marginTop: 3 }}>{'⭐'.repeat(stars)}{'☆'.repeat(3 - stars)}</div>}
-        {isActive && <div style={{ fontSize: 11, color: '#2E7D32', fontWeight: 700, marginTop: 3 }}>En curso →</div>}
-        {isLocked && <div style={{ fontSize: 11, color: t.text3, marginTop: 2 }}>Bloqueado</div>}
+        {isActive && <div style={{ fontSize: 14, color: '#2E7D32', fontWeight: 700, marginTop: 3 }}>En curso →</div>}
+        {isLocked && <div style={{ fontSize: 14, color: t.text3, marginTop: 2 }}>Bloqueado</div>}
       </div>
     </div>
   );

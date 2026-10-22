@@ -11,7 +11,7 @@ const signToken = (usuario, estudianteId = null) =>
     { expiresIn: '7d' }
   );
 
-const safeUser = (u, estudianteId = null, puntaje = 0, racha = 0) => ({
+const safeUser = (u, estudianteId = null, puntaje = 0, racha = 0, onboardingDone = false) => ({
   id: u.usuId,
   email: u.usuCorreo,
   nombre: u.usuNombre,
@@ -20,6 +20,7 @@ const safeUser = (u, estudianteId = null, puntaje = 0, racha = 0) => ({
   puntos: puntaje,
   racha,
   estudianteId,
+  onboardingDone,
 });
 
 export const authService = {
@@ -68,10 +69,16 @@ export const authService = {
 
     const estudianteId = usuario.estudiante?.estId || null;
     const puntaje = usuario.estudiante?.estPuntaje || 0;
-    const racha = usuario.estudiante?.estRachaDias || 0;
+    let racha = usuario.estudiante?.estRachaDias || 0;
+    const yaAccedio = !!usuario.estudiante?.estUltimoAcc;
+
+    if (estudianteId) {
+      const updated = await updateEstudianteStreak(estudianteId, usuario.estudiante.estUltimoAcc);
+      racha = updated.estRachaDias;
+    }
 
     return {
-      usuario: safeUser(usuario, estudianteId, puntaje, racha),
+      usuario: safeUser(usuario, estudianteId, puntaje, racha, yaAccedio),
       token: signToken(usuario, estudianteId),
     };
   },
@@ -143,3 +150,27 @@ export const authService = {
     });
   },
 };
+
+async function updateEstudianteStreak(estId, ultimoAcc) {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  let nuevaRacha = 1;
+
+  if (ultimoAcc) {
+    const lastDay = new Date(ultimoAcc.getFullYear(), ultimoAcc.getMonth(), ultimoAcc.getDate());
+    const diffDays = Math.floor((today - lastDay) / 86400000);
+
+    if (diffDays === 0) {
+      const current = await prisma.estudiante.findUnique({ where: { estId } });
+      return { estRachaDias: current.estRachaDias };
+    } else if (diffDays === 1) {
+      const current = await prisma.estudiante.findUnique({ where: { estId } });
+      nuevaRacha = current.estRachaDias + 1;
+    }
+  }
+
+  return prisma.estudiante.update({
+    where: { estId },
+    data: { estRachaDias: nuevaRacha, estUltimoAcc: now },
+  });
+}

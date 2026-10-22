@@ -482,7 +482,7 @@ export default function LandingScreen() {
                 </>}
               </div>
               <div style={{ marginTop:24, textAlign:'center' }}>
-                <div style={{ color:'rgba(255,255,255,.45)', fontSize:11, letterSpacing:'2px', textTransform:'uppercase', marginBottom:4 }}>Tu asistente</div>
+                <div style={{ color:'rgba(255,255,255,.45)', fontSize:14, letterSpacing:'2px', textTransform:'uppercase', marginBottom:4 }}>Tu asistente</div>
                 <div style={{ color:'#69F0AE', fontSize: isTablet ? 17 : 20, fontWeight:900, letterSpacing:'-0.5px' }}>SIGMA</div>
               </div>
             </div>
@@ -557,7 +557,7 @@ export default function LandingScreen() {
           <div style={{ maxWidth:1100, margin:'0 auto' }}>
             <div style={{ textAlign:'center', marginBottom: isMobile ? 40 : 60, opacity: sectionsVis.how ? 1 : 0, transform: sectionsVis.how ? 'none' : 'translateY(36px)', transition:'opacity 0.7s, transform 0.7s' }}>
               <div style={{ display:'inline-flex', alignItems:'center', gap:8, background:'rgba(105,240,174,.1)', border:'1px solid rgba(105,240,174,.2)', borderRadius:100, padding:'6px 16px', marginBottom:18 }}>
-                <span style={{ color:'#69F0AE', fontSize:11, fontWeight:800, letterSpacing:'1.5px', textTransform:'uppercase' }}>Metodología</span>
+                <span style={{ color:'#69F0AE', fontSize:14, fontWeight:800, letterSpacing:'1.5px', textTransform:'uppercase' }}>Metodología</span>
               </div>
               <h2 style={{ color:'#fff', fontSize: isMobile ? '26px' : 'clamp(30px,3.5vw,46px)', fontWeight:900, letterSpacing:'-1.5px', lineHeight:1.1, marginBottom:16 }}>
                 Simple.{' '}
@@ -593,7 +593,7 @@ export default function LandingScreen() {
           <div style={{ maxWidth:1000, margin:'0 auto' }}>
             <div style={{ textAlign:'center', marginBottom: isMobile ? 44 : 64, opacity: sectionsVis.path ? 1 : 0, transform: sectionsVis.path ? 'none' : 'translateY(36px)', transition:'opacity 0.7s, transform 0.7s' }}>
               <div style={{ display:'inline-flex', alignItems:'center', gap:8, background:'rgba(255,213,79,.1)', border:'1px solid rgba(255,213,79,.22)', borderRadius:100, padding:'6px 16px', marginBottom:18 }}>
-                <span style={{ color:'#FFD54F', fontSize:11, fontWeight:800, letterSpacing:'1.5px', textTransform:'uppercase' }}>Tu Camino</span>
+                <span style={{ color:'#FFD54F', fontSize:14, fontWeight:800, letterSpacing:'1.5px', textTransform:'uppercase' }}>Tu Camino</span>
               </div>
               <h2 style={{ color:'#fff', fontSize: isMobile ? '26px' : 'clamp(30px,3.5vw,46px)', fontWeight:900, letterSpacing:'-1.5px', lineHeight:1.1, marginBottom:16 }}>
                 De cero a{' '}
@@ -618,7 +618,7 @@ export default function LandingScreen() {
                     </div>
                     <div>
                       <div style={{ color:'#fff', fontWeight:700, fontSize:14 }}>{node.label}</div>
-                      <div style={{ display:'inline-block', marginTop:4, background:node.colorDim, border:`1px solid ${node.color}44`, borderRadius:100, padding:'2px 10px', color:node.color, fontSize:11, fontWeight:800 }}>{node.xp}</div>
+                      <div style={{ display:'inline-block', marginTop:4, background:node.colorDim, border:`1px solid ${node.color}44`, borderRadius:100, padding:'2px 10px', color:node.color, fontSize:14, fontWeight:800 }}>{node.xp}</div>
                     </div>
                   </div>
                 ))}
@@ -677,7 +677,7 @@ export default function LandingScreen() {
             {/* Derecha: features */}
             <div style={{ flex:1, opacity: sectionsVis.sigma ? 1 : 0, transform: sectionsVis.sigma ? 'none' : 'translateX(48px)', transition:'opacity 0.85s 0.2s, transform 0.85s 0.2s' }}>
               <div style={{ display:'inline-flex', alignItems:'center', gap:8, background:'rgba(105,240,174,.1)', border:'1px solid rgba(105,240,174,.2)', borderRadius:100, padding:'6px 16px', marginBottom:20 }}>
-                <span style={{ color:'#69F0AE', fontSize:11, fontWeight:800, letterSpacing:'1.5px', textTransform:'uppercase' }}>IA Educativa</span>
+                <span style={{ color:'#69F0AE', fontSize:14, fontWeight:800, letterSpacing:'1.5px', textTransform:'uppercase' }}>IA Educativa</span>
               </div>
               <h2 style={{ color:'#fff', fontSize: isMobile ? '26px' : 'clamp(28px,3.2vw,42px)', fontWeight:900, letterSpacing:'-1.5px', lineHeight:1.15, marginBottom:14 }}>
                 SIGMA nunca{!isMobile && <br />} te{' '}
@@ -735,7 +735,7 @@ export default function LandingScreen() {
             <button className="cta-btn-final" style={{ fontSize: isMobile ? 16 : 20, padding: isMobile ? '18px 44px' : '22px 68px' }} onClick={() => navigate('/select-role')}>
               EMPEZAR GRATIS <span className="cta-arrow">→</span>
             </button>
-            <div style={{ color:'rgba(255,255,255,.22)', fontSize:12, marginTop:18, letterSpacing:'0.4px' }}>
+            <div style={{ color:'rgba(255,255,255,.22)', fontSize:15, marginTop:18, letterSpacing:'0.4px' }}>
               Sin tarjeta de crédito · Sin límites · 100% gratuito
             </div>
 
@@ -743,7 +743,7 @@ export default function LandingScreen() {
               {[{ num:'5+', txt:'módulos', delay:'0s' },{ num:'14+', txt:'ejercicios', delay:'0.12s' },{ num:'100%', txt:'gratuito', delay:'0.24s' }].map(({ num, txt, delay }) => (
                 <div key={txt} className="big-stat" style={{ textAlign:'center', animationDelay: sectionsVis.cta ? delay : '0s', animationPlayState: sectionsVis.cta ? 'running' : 'paused' }}>
                   <div style={{ color:'#69F0AE', fontSize: isMobile ? 28 : 36, fontWeight:900, letterSpacing:'-1px' }}>{num}</div>
-                  <div style={{ color:'rgba(255,255,255,.38)', fontSize:12, marginTop:2, textTransform:'uppercase', letterSpacing:'1px' }}>{txt}</div>
+                  <div style={{ color:'rgba(255,255,255,.38)', fontSize:15, marginTop:2, textTransform:'uppercase', letterSpacing:'1px' }}>{txt}</div>
                 </div>
               ))}
             </div>
@@ -758,36 +758,36 @@ export default function LandingScreen() {
               {/* Marca */}
               <div style={{ gridColumn: isMobile ? '1 / -1' : 'auto' }}>
                 <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:10 }}>
-                  <div style={{ width:28, height:28, borderRadius:8, background:'rgba(255,255,255,.15)', border:'1px solid rgba(255,255,255,.25)', display:'flex', alignItems:'center', justifyContent:'center', fontWeight:900, fontSize:11, color:'#fff' }}>I+</div>
+                  <div style={{ width:28, height:28, borderRadius:8, background:'rgba(255,255,255,.15)', border:'1px solid rgba(255,255,255,.25)', display:'flex', alignItems:'center', justifyContent:'center', fontWeight:900, fontSize:14, color:'#fff' }}>I+</div>
                   <span style={{ color:'#fff', fontWeight:800, fontSize:15 }}>INTEGRA<span style={{ color:'#69F0AE' }}>+</span></span>
                 </div>
-                <p style={{ color:'rgba(255,255,255,.35)', fontSize:12, lineHeight:1.7, maxWidth:200 }}>
+                <p style={{ color:'rgba(255,255,255,.35)', fontSize:15, lineHeight:1.7, maxWidth:200 }}>
                   Plataforma educativa gratuita para dominar el Cálculo Integral.
                 </p>
               </div>
               {/* Plataforma */}
               <div>
-                <div style={{ color:'rgba(255,255,255,.5)', fontSize:10, fontWeight:800, letterSpacing:'1.5px', textTransform:'uppercase', marginBottom:12 }}>Plataforma</div>
+                <div style={{ color:'rgba(255,255,255,.5)', fontSize:13, fontWeight:800, letterSpacing:'1.5px', textTransform:'uppercase', marginBottom:12 }}>Plataforma</div>
                 {[{ label:'Inicio', path:'/' }, { label:'Iniciar sesión', path:'/login' }, { label:'Registrarse', path:'/select-role' }].map(({ label, path }) => (
                   <div key={label} style={{ marginBottom:8 }}>
-                    <button onClick={() => navigate(path)} style={{ background:'none', border:'none', cursor:'pointer', color:'rgba(255,255,255,.4)', fontSize:12, padding:0, transition:'color 0.18s' }} onMouseEnter={e => e.currentTarget.style.color='#69F0AE'} onMouseLeave={e => e.currentTarget.style.color='rgba(255,255,255,.4)'}>{label}</button>
+                    <button onClick={() => navigate(path)} style={{ background:'none', border:'none', cursor:'pointer', color:'rgba(255,255,255,.4)', fontSize:15, padding:0, transition:'color 0.18s' }} onMouseEnter={e => e.currentTarget.style.color='#69F0AE'} onMouseLeave={e => e.currentTarget.style.color='rgba(255,255,255,.4)'}>{label}</button>
                   </div>
                 ))}
               </div>
               {/* Aprender */}
               <div>
-                <div style={{ color:'rgba(255,255,255,.5)', fontSize:10, fontWeight:800, letterSpacing:'1.5px', textTransform:'uppercase', marginBottom:12 }}>Aprender</div>
+                <div style={{ color:'rgba(255,255,255,.5)', fontSize:13, fontWeight:800, letterSpacing:'1.5px', textTransform:'uppercase', marginBottom:12 }}>Aprender</div>
                 {['Integral Indefinida', 'Sustitución u', 'Integral Definida', 'Por Partes'].map(t => (
                   <div key={t} style={{ marginBottom:8 }}>
-                    <span style={{ color:'rgba(255,255,255,.35)', fontSize:12 }}>{t}</span>
+                    <span style={{ color:'rgba(255,255,255,.35)', fontSize:15 }}>{t}</span>
                   </div>
                 ))}
               </div>
             </div>
             {/* Copyright */}
             <div style={{ borderTop:'1px solid rgba(255,255,255,0.07)', paddingTop:18, display:'flex', alignItems:'center', justifyContent: isMobile ? 'center' : 'space-between', flexWrap:'wrap', gap:8 }}>
-              <span style={{ color:'rgba(255,255,255,.2)', fontSize:11 }}>© 2026 INTEGRA+ · Plataforma de Cálculo Integral</span>
-              <span style={{ color:'rgba(255,255,255,.15)', fontSize:11 }}>Hecho con ∫ y pasión por las matemáticas</span>
+              <span style={{ color:'rgba(255,255,255,.2)', fontSize:14 }}>© 2026 INTEGRA+ · Plataforma de Cálculo Integral</span>
+              <span style={{ color:'rgba(255,255,255,.15)', fontSize:14 }}>Hecho con ∫ y pasión por las matemáticas</span>
             </div>
           </div>
         </footer>

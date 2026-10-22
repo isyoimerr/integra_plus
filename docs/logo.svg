@@ -1,0 +1,20 @@
+<svg width="720" height="220" viewBox="0 0 720 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="50" y1="20" x2="660" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="0.55" stop-color="#111827"/>
+      <stop offset="1" stop-color="#1F2937"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="60" y1="40" x2="180" y2="180" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#22C55E"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="720" height="220" rx="28" fill="url(#bg)"/>
+  <circle cx="100" cy="110" r="58" fill="url(#accent)" opacity="0.9"/>
+  <path d="M73 134L95 82L117 116L136 90L154 134H73Z" fill="white" opacity="0.9"/>
+  <path d="M58 140C70 118 86 99 120 78C134 70 151 65 166 64C152 82 146 104 141 120C128 146 104 157 82 160C69 162 60 154 58 140Z" fill="#A78BFA" opacity="0.75"/>
+  <text x="210" y="94" fill="#F8FAFC" font-family="Segoe UI, Arial, sans-serif" font-size="54" font-weight="700">INTEGRA+</text>
+  <text x="212" y="138" fill="#94A3B8" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="600" letter-spacing="4">EDUCACIÓN | CÁLCULO | PROGRESO</text>
+  <rect x="212" y="158" width="214" height="8" rx="4" fill="#22C55E" opacity="0.9"/>
+</svg>
