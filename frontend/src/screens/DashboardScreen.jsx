@@ -9,6 +9,8 @@ import SigmaBubble from '../components/sigma/SigmaBubble';
 import SigmaLogo from '../components/sigma/SigmaLogo';
 import AchievementBadges from '../components/ui/AchievementBadges';
 import WeeklyActivityChart from '../components/ui/WeeklyActivityChart';
+import VirtualAssistant from '../components/assistant/VirtualAssistant';
+import { TASK_SCHEDULE } from '../data/taskSchedule';
 
 /* ─── Icons ──────────────────────────────────────────────────────────────── */
 const IcFlame = ({ size = 22 }) => (
@@ -91,7 +93,7 @@ function StatCard({ icon, value, label, accent, delay = 0 }) {
       </div>
       <div style={{ minWidth: 0 }}>
         <div style={{ fontSize: 22, fontWeight: 900, color: t.text, letterSpacing: '-0.5px', lineHeight: 1.1 }}>{value}</div>
-        <div style={{ fontSize: 11, color: t.text3, fontWeight: 600, marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{label}</div>
+        <div style={{ fontSize: 14, color: t.text3, fontWeight: 600, marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{label}</div>
       </div>
     </div>
   );
@@ -215,10 +217,10 @@ function ModuleCard({ course: c, idx, onTheory, onPractice, special, onDemo }) {
         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', zIndex:1 }}>
           <span style={{
             background:'rgba(255,255,255,0.22)', borderRadius:20,
-            padding:'3px 10px', fontSize:9, fontWeight:800,
+            padding:'3px 10px', fontSize:12, fontWeight:800,
             color:'#fff', textTransform:'uppercase', letterSpacing:'0.9px',
           }}>
-            {special ? 'Próximamente' : c.locked ? 'Bloqueado' : c.completed ? 'Completado' : 'Disponible'}
+            {special ? 'Referencia rápida' : c.locked ? 'Bloqueado' : c.completed ? 'Completado' : 'Disponible'}
           </span>
 
           <div style={{
@@ -268,7 +270,7 @@ function ModuleCard({ course: c, idx, onTheory, onPractice, special, onDemo }) {
               }}/>
             </div>
             <div style={{ display:'flex', justifyContent:'flex-end', marginTop:3 }}>
-              <span style={{ fontSize:10, fontWeight:700, color: mainColor }}>{c.progress}%</span>
+              <span style={{ fontSize:13, fontWeight:700, color: mainColor }}>{c.progress}%</span>
             </div>
           </div>
         )}
@@ -277,21 +279,23 @@ function ModuleCard({ course: c, idx, onTheory, onPractice, special, onDemo }) {
         {c.completed && c.done !== null && (
           <div style={{ display:'flex', alignItems:'center', gap:6, background:'#56CC0212', borderRadius:8, padding:'5px 8px', marginBottom:10 }}>
             <IcStar size={13} />
-            <span style={{ fontSize:10, fontWeight:700, color:'#2E9400' }}>{c.done} ejercicios completados</span>
+            <span style={{ fontSize:13, fontWeight:700, color:'#2E9400' }}>{c.done} ejercicios completados</span>
           </div>
         )}
 
         {/* Buttons */}
         {special ? (
-          <div style={{ textAlign:'center', padding:'6px 4px 2px' }}>
-            <span style={{
-              display:'inline-block', background:`${c.color}18`,
-              color: c.color, fontSize:11, fontWeight:700,
-              borderRadius:20, padding:'5px 16px',
-              border:`1.5px solid ${c.color}44`,
-            }}>
-              Disponible próximamente
-            </span>
+          <div style={{ display:'flex', gap:7 }}>
+            <button
+              onClick={() => navigate('/recursos')}
+              style={{
+                width:'100%', padding:'10px 0', borderRadius:12,
+                border:'none', background: mainColor, color:'#fff',
+                fontSize:13, fontWeight:700, cursor:'pointer',
+                boxShadow:`0 4px 14px ${mainColor}44`,
+              }}>
+              📖 Explorar recursos
+            </button>
           </div>
         ) : !c.locked ? (
           <div style={{ display:'flex', flexDirection:'column', gap:7 }}>
@@ -351,7 +355,7 @@ function ModuleCard({ course: c, idx, onTheory, onPractice, special, onDemo }) {
             )}
           </div>
         ) : (
-          <div style={{ textAlign:'center', padding:'6px 4px 0', fontSize:10, color: t.text3, fontWeight:600 }}>
+          <div style={{ textAlign:'center', padding:'6px 4px 0', fontSize:13, color: t.text3, fontWeight:600 }}>
             Completa el nivel anterior para desbloquear
           </div>
         )}
@@ -456,7 +460,7 @@ export default function DashboardScreen() {
             {(user?.nombre||'E')[0].toUpperCase()}
           </div>
           <div>
-            <div style={{ fontSize:10, color: t.text3, fontWeight:700, textTransform:'uppercase', letterSpacing:'0.7px' }}>{greeting}</div>
+            <div style={{ fontSize:13, color: t.text3, fontWeight:700, textTransform:'uppercase', letterSpacing:'0.7px' }}>{greeting}</div>
             <div style={{ fontSize:16, fontWeight:900, color: t.text, letterSpacing:'-0.4px', lineHeight:1.1 }}>{user?.nombre||'Estudiante'}</div>
           </div>
         </div>
@@ -490,9 +494,20 @@ export default function DashboardScreen() {
           padding:'20px 24px 18px', position:'relative', overflow:'hidden',
         }}>
           {[[-28,-28,110,110],[ 36,-32, 72, 72],[-20,-20, 80, 80]].map(([r,b,w,h],i) => (
-            <div key={i} style={{ position:'absolute', right:i===2?'auto':r, left:i===2?r:undefined, top:i===1?'auto':undefined, bottom:i===1?b:undefined, top:i!==1?b:undefined, width:w, height:h, borderRadius:'50%', background:`rgba(255,255,255,${0.07-i*0.02})`, pointerEvents:'none' }}/>
+            <div key={i} style={{
+              position: 'absolute',
+              right: i === 2 ? 'auto' : r,
+              left: i === 2 ? r : undefined,
+              top: i === 1 ? 'auto' : b,
+              bottom: i === 1 ? b : undefined,
+              width: w,
+              height: h,
+              borderRadius: '50%',
+              background: `rgba(255,255,255,${0.07 - i * 0.02})`,
+              pointerEvents: 'none',
+            }}/>
           ))}
-          <div style={{ fontSize:10, fontWeight:700, color:'rgba(255,255,255,0.6)', letterSpacing:'1.8px', textTransform:'uppercase', marginBottom:4 }}>
+          <div style={{ fontSize:13, fontWeight:700, color:'rgba(255,255,255,0.6)', letterSpacing:'1.8px', textTransform:'uppercase', marginBottom:4 }}>
             INTEGRA+ — CÁLCULO INTEGRAL
           </div>
           <div style={{ fontSize:19, fontWeight:900, color:'#fff', marginBottom:14, letterSpacing:'-0.3px' }}>
@@ -518,6 +533,19 @@ export default function DashboardScreen() {
           </div>
         </div>
 
+        <div style={{ padding:'12px 16px 0', display:'flex', justifyContent:'flex-end' }}>
+          <button onClick={() => navigate('/progress')}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              padding: '12px 18px', borderRadius: 14, border: 'none',
+              background: t.primary, color: '#fff', fontSize: 14, fontWeight: 700,
+              cursor: 'pointer', boxShadow: '0 10px 24px rgba(35, 121, 242, 0.18)',
+            }}>
+            <IcBook size={18} />
+            Ver progreso
+          </button>
+        </div>
+
         {/* ── SIGMA ── */}
         <div style={{ padding:'14px 16px 0' }}>
           <SigmaBubble state="celebracion">
@@ -525,6 +553,39 @@ export default function DashboardScreen() {
               ? `¡${stats.racha} días seguidos! ¿Listo/a, ${user?.nombre||'campeón'}?`
               : `¡Bienvenido/a, ${user?.nombre||'campeón'}! Hoy es un buen día para aprender.`}
           </SigmaBubble>
+        </div>
+
+        {/* ── Asistente virtual ── */}
+        <div style={{ padding:'16px 16px 0' }}>
+          <VirtualAssistant />
+        </div>
+
+        {/* ── Plan de tareas por horas ── */}
+        <div style={{ padding:'16px 16px 0' }}>
+          <div style={{ background: t.cardBg, borderRadius: 22, border: `1.5px solid ${t.cardBorder}`, padding: '18px 20px', boxShadow: '0 12px 34px rgba(0,0,0,0.06)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 14, marginBottom: 16 }}>
+              <div>
+                <div style={{ fontSize: 15, fontWeight: 900, color: t.text }}>Tareas del día</div>
+                <div style={{ fontSize: 15, color: t.text3, marginTop: 4 }}>Una guía por horas para tu nivel actual y práctica efectiva.</div>
+              </div>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderRadius: 999, background: `${t.primary}14`, color: t.primary, fontSize: 14, fontWeight: 700, textTransform: 'uppercase' }}>HOY</div>
+            </div>
+            {TASK_SCHEDULE[stats.nivelActual] ? (
+              <div style={{ display: 'grid', gap: 12 }}>
+                {TASK_SCHEDULE[stats.nivelActual].map((task) => (
+                  <div key={task.time} style={{ display: 'grid', gridTemplateColumns: '74px 1fr', gap: 16, padding: '14px 16px', borderRadius: 18, background: t.appBg, border: `1px solid ${t.cardBorder}` }}>
+                    <div style={{ fontSize: 13, fontWeight: 900, color: t.primary, letterSpacing: '0.04em' }}>{task.time}</div>
+                    <div>
+                      <div style={{ fontSize: 15, fontWeight: 800, color: t.text }}>{task.title}</div>
+                      <div style={{ fontSize: 13, color: t.text3, marginTop: 4, lineHeight: 1.6 }}>{task.description}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div style={{ fontSize: 13, color: t.text3, lineHeight: 1.7 }}>No hay plan específico para tu nivel actual. Sigue con las actividades de práctica y usa SIGMA cuando tengas dudas.</div>
+            )}
+          </div>
         </div>
 
         {/* ── Module 3D grid ── */}

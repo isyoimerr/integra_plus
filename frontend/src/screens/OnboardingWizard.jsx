@@ -7,7 +7,7 @@ import Confetti from '../components/ui/Confetti';
 const LEVELS = [
   { id: 'zero', emoji: '🟢', title: 'Empiezo desde cero' },
   { id: 'mid', emoji: '🟡', title: 'Lo he visto un poco' },
-  { id: 'basic', emoji: '🔵', title: 'Ya sé lo básico' },
+  { id: 'basic', title: 'Ya sé lo básico' },
 ];
 const STYLES = [
   { id: 'intense', emoji: '🔥', title: 'Intenso' },
@@ -79,8 +79,7 @@ function OptionCard({ selected, onClick, emoji, title, accent }) {
       }}
       onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-1px)')}
       onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 16, fontWeight: 700, fontSize: 15 }}>
-        <span style={{ width: 34, height: 34, borderRadius: 14, background: accent || 'rgba(255,255,255,0.08)', display: 'grid', placeItems: 'center', fontSize: 18 }}>{emoji}</span>
+      <div style={{ fontWeight: 700, fontSize: 15 }}>
         {title}
       </div>
       <span style={{ opacity: selected ? 1 : 0.35, fontSize: 16 }}>{selected ? '✓' : '○'}</span>
@@ -90,7 +89,7 @@ function OptionCard({ selected, onClick, emoji, title, accent }) {
 
 export default function OnboardingWizard() {
   const navigate = useNavigate();
-  const { updateUser } = useAuth();
+  const { user, updateUser } = useAuth();
   const { changeTheme, themeName } = useTheme();
   const [step, setStep] = useState(0);
   const [nickname, setNickname] = useState('');
@@ -139,7 +138,7 @@ export default function OnboardingWizard() {
     handleThemeChange(themeChoice, themeChoice === 'custom' ? customColor : undefined);
     updateUser?.({ nombre: nickname, nivel: levelChoice, estilo: styleChoice });
     localStorage.setItem('integra_onboarding_done', '1');
-    navigate('/dashboard');
+    navigate(user?.rol === 'docente' ? '/teacher' : '/dashboard');
   };
 
   if (showFinal) {
@@ -196,7 +195,7 @@ export default function OnboardingWizard() {
         <div style={{ position: 'absolute', top: -20, right: -30, width: 140, height: 140, borderRadius: '50%', background: 'rgba(72,207,133,0.12)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', bottom: -12, left: -20, width: 100, height: 100, borderRadius: '50%', background: 'rgba(72,207,133,0.08)', pointerEvents: 'none' }} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 28 }}>
-          <span style={{ color: '#99d7b4', fontSize: 11, letterSpacing: '0.3em', textTransform: 'uppercase' }}>Onboarding</span>
+          <span style={{ color: '#99d7b4', fontSize: 14, letterSpacing: '0.3em', textTransform: 'uppercase' }}>Onboarding</span>
           <div style={{ color: '#f7fff7', fontSize: 32, fontWeight: 800, lineHeight: 1.04 }}>{activeStep.title}</div>
           <div style={{ color: '#b9d8c5', fontSize: 15, maxWidth: 520 }}>{activeStep.subtitle}</div>
           <div style={{ marginTop: 14, padding: '16px 18px', borderRadius: 20, background: 'rgba(42,142,82,0.12)', border: '1px solid rgba(72,207,133,0.18)', color: '#d8f4d8', fontSize: 14, lineHeight: 1.65 }}>

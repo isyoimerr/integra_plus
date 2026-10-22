@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { useProgress } from '../../contexts/ProgressContext';
 import { useTheme } from '../../contexts/ThemeContext';
 import { LEVEL_CONFIG } from '../../data/levelConfig';
+import { Explanation } from '../../components/ui/Explanation';
 import SigmaBubble from '../../components/sigma/SigmaBubble';
 
 export default function ResultCorrectScreen() {
   const navigate = useNavigate();
-  const { t } = useTheme();
+  const { t, themeName } = useTheme();
   const { selectedLevel, exerciseIdx, setExerciseIdx, setLives, currentExercises, lastWrong } = useProgress();
   const lv = LEVEL_CONFIG[selectedLevel] || LEVEL_CONFIG[0];
   const [show, setShow] = useState(false);
@@ -50,9 +51,14 @@ export default function ResultCorrectScreen() {
 
         {explain && (
           <div style={{ background: t.cardBg, borderRadius: 16, padding: '18px 20px', border: `1px solid ${t.cardBorder}`, marginBottom: 14, boxShadow: '0 2px 16px rgba(0,0,0,0.07)', ...a(0.6) }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: '#2E7D32', textTransform: 'uppercase', letterSpacing: '0.7px', marginBottom: 12 }}>¿Por qué es correcto?</div>
-            <div style={{ background: `${lv.color}10`, borderRadius: 12, padding: '14px 16px', marginBottom: 8, textAlign: 'center', border: `1px solid ${lv.color}22` }}>
-              <span style={{ fontSize: 17, fontFamily: 'Georgia,serif', color: lv.colorDark, fontWeight: 600 }}>{explain}</span>
+            <div style={{ fontSize: 15, fontWeight: 700, color: '#2E7D32', textTransform: 'uppercase', letterSpacing: '0.7px', marginBottom: 12 }}>¿Por qué es correcto?</div>
+            <div style={{ background: themeName === 'dark' ? 'rgba(255,255,255,0.05)' : `${lv.color}10`, borderRadius: 12, padding: '14px 16px', marginBottom: 8, textAlign: 'left', border: themeName === 'dark' ? '1px solid rgba(255,255,255,0.12)' : `1px solid ${lv.color}22` }}>
+              <Explanation
+                text={explain}
+                style={{ fontSize: 17, fontFamily: 'Georgia,serif', fontWeight: 600 }}
+                bgColor={themeName === 'dark' ? 'rgba(255,255,255,0.02)' : `${lv.color}10`}
+                borderColor={themeName === 'dark' ? 'rgba(255,255,255,0.12)' : `${lv.color}22`}
+              />
             </div>
           </div>
         )}

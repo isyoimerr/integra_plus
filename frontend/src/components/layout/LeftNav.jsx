@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useAuth } from '../../contexts/AuthContext';
 import SigmaLogo from '../sigma/SigmaLogo';
 
 /* ─── Nav items ──────────────────────────────────────────────────────────── */
@@ -33,6 +34,27 @@ const ITEMS = [
     ),
   },
   {
+    label: 'Progreso', path: '/progress', color: '#FF9600', activePaths: ['/progress'],
+    icon: (s) => (
+      <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 19h16" />
+        <path d="M4 15l4-4 4 4 4-6 4 6" />
+        <circle cx="6" cy="17" r="2" />
+        <circle cx="14" cy="11" r="2" />
+        <circle cx="20" cy="17" r="2" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Recursos', path: '/recursos', color: '#E67E22',
+    icon: (s) => (
+      <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6l4 2"/>
+      </svg>
+    ),
+  },
+  {
     label: 'Perfil', path: '/profile', color: '#CE82FF',
     icon: (s) => (
       <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
@@ -42,6 +64,19 @@ const ITEMS = [
     ),
   },
 ];
+
+const TEACHER_ITEM = {
+  label: 'Docente', path: '/teacher', color: '#8E24AA', activePaths: ['/teacher'],
+  icon: (s) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 19h16" />
+      <path d="M7 15v4" />
+      <path d="M12 11v8" />
+      <path d="M17 7v12" />
+      <path d="M4 11l4-4 4 4 4-4 4 4" />
+    </svg>
+  ),
+};
 
 /* ─── Sun/Moon toggle icon ───────────────────────────────────────────────── */
 const IcSun = () => (
@@ -72,10 +107,14 @@ const IcChevronRight = () => (
 /* ─── LeftNav ─────────────────────────────────────────────────────────────── */
 export default function LeftNav() {
   const { t, themeName, toggleTheme } = useTheme();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [collapsed, setCollapsed] = useState(false);
 
+  const items = user?.rol === 'docente'
+    ? [...ITEMS.filter((item) => item.path !== '/progress'), TEACHER_ITEM]
+    : ITEMS;
   const W = collapsed ? 72 : 224;
 
   return (
@@ -117,7 +156,7 @@ export default function LeftNav() {
                 <div style={{ fontSize: 14, fontWeight: 900, color: t.primary, letterSpacing: '-0.2px', lineHeight: 1.15, whiteSpace: 'nowrap', animation: 'fadeInLeft 0.2s ease' }}>
                   INTEGRA+
                 </div>
-                <div style={{ fontSize: 9, color: t.text3, fontWeight: 600, letterSpacing: '0.4px', whiteSpace: 'nowrap' }}>
+                <div style={{ fontSize: 12, color: t.text3, fontWeight: 600, letterSpacing: '0.4px', whiteSpace: 'nowrap' }}>
                   Cálculo Integral
                 </div>
               </div>
@@ -166,7 +205,7 @@ export default function LeftNav() {
         )}
 
         {/* ── Nav items ── */}
-        {ITEMS.map((item, i) => {
+        {items.map((item, i) => {
           const isActive = item.activePaths
             ? item.activePaths.some(p => pathname.startsWith(p))
             : item.path && pathname.startsWith(item.path);
@@ -185,7 +224,7 @@ export default function LeftNav() {
                 borderRadius: 14,
                 border: 'none',
                 cursor: 'pointer',
-                background: isActive ? `${item.color}18` : 'transparent',
+                background: isActive ? `${item.color}30` : 'transparent',
                 color: isActive ? item.color : t.text2,
                 fontWeight: isActive ? 800 : 600,
                 fontSize: 14,
@@ -212,8 +251,8 @@ export default function LeftNav() {
               {/* Icon box */}
               <div style={{
                 width: 38, height: 38, borderRadius: 12,
-                background: isActive ? `${item.color}22` : t.appBg,
-                border: `1.5px solid ${isActive ? item.color + '44' : t.cardBorder}`,
+                background: isActive ? `${item.color}28` : t.appBg,
+                border: `1.5px solid ${isActive ? item.color + '60' : t.cardBorder}`,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 flexShrink: 0,
                 color: isActive ? item.color : t.text3,
@@ -276,7 +315,7 @@ export default function LeftNav() {
             marginTop: 6,
             animation: 'fadeInLeft 0.2s ease',
           }}>
-            <div style={{ fontSize: 10, color: t.text3, fontWeight: 600, letterSpacing: '0.4px', textAlign: 'center', lineHeight: 1.6 }}>
+            <div style={{ fontSize: 13, color: t.text3, fontWeight: 600, letterSpacing: '0.4px', textAlign: 'center', lineHeight: 1.6 }}>
               INTEGRA+ v1.0
               <br />Plataforma de Cálculo Integral
             </div>

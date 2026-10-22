@@ -151,8 +151,8 @@ function LevelCard({ course: c, idx, onTheory, onPractice, special, onDemo }) {
 
         {/* Status + icon */}
         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', zIndex:1 }}>
-          <span style={{ background:'rgba(255,255,255,0.22)', borderRadius:20, padding:'3px 10px', fontSize:9, fontWeight:800, color:'#fff', textTransform:'uppercase', letterSpacing:'1px' }}>
-            {special ? 'Próximamente' : isLocked ? 'Bloqueado' : isDone ? 'Completado' : 'Disponible'}
+          <span style={{ background:'rgba(255,255,255,0.22)', borderRadius:20, padding:'3px 10px', fontSize:15, fontWeight:800, color:'#fff', textTransform:'uppercase', letterSpacing:'1px' }}>
+            {special ? 'Referencia rápida' : isLocked ? 'Bloqueado' : isDone ? 'Completado' : 'Disponible'}
           </span>
           <div style={{
             width:44, height:44, borderRadius:'50%', background:'rgba(255,255,255,0.2)',
@@ -170,7 +170,7 @@ function LevelCard({ course: c, idx, onTheory, onPractice, special, onDemo }) {
           </div>
         )}
         {!isDone && (
-          <div style={{ fontSize:12, fontWeight:700, color:'rgba(255,255,255,0.8)', zIndex:1 }}>
+          <div style={{ fontSize:15, fontWeight:700, color:'rgba(255,255,255,0.8)', zIndex:1 }}>
             {special ? 'Recursos' : `Nivel ${idx + 1}`}
           </div>
         )}
@@ -179,7 +179,7 @@ function LevelCard({ course: c, idx, onTheory, onPractice, special, onDemo }) {
       {/* Body */}
       <div style={{ background: t.cardBg, padding:'13px 14px 15px' }}>
         <div style={{ fontSize:13, fontWeight:800, color: t.text, marginBottom:3, lineHeight:1.3 }}>{c.title}</div>
-        {c.subtitle && <div style={{ fontSize:11, color: t.text3, marginBottom:10, lineHeight:1.4 }}>{c.subtitle}</div>}
+        {c.subtitle && <div style={{ fontSize:14, color: t.text3, marginBottom:10, lineHeight:1.4 }}>{c.subtitle}</div>}
 
         {/* Progress */}
         {c.progress !== null && !special && (
@@ -193,8 +193,8 @@ function LevelCard({ course: c, idx, onTheory, onPractice, special, onDemo }) {
               }}/>
             </div>
             <div style={{ display:'flex', justifyContent:'space-between', marginTop:4 }}>
-              <span style={{ fontSize:10, color: t.text3, fontWeight:600 }}>Progreso</span>
-              <span style={{ fontSize:10, fontWeight:700, color: mainColor }}>{c.progress}%</span>
+              <span style={{ fontSize:13, color: t.text3, fontWeight:600 }}>Progreso</span>
+              <span style={{ fontSize:13, fontWeight:700, color: mainColor }}>{c.progress}%</span>
             </div>
           </div>
         )}
@@ -203,16 +203,23 @@ function LevelCard({ course: c, idx, onTheory, onPractice, special, onDemo }) {
         {isDone && c.done !== null && (
           <div style={{ display:'flex', alignItems:'center', gap:6, background:'#56CC0212', borderRadius:8, padding:'5px 8px', marginBottom:10 }}>
             <IcStar size={12} filled/>
-            <span style={{ fontSize:10, fontWeight:700, color:'#2E9400' }}>{c.done} ejercicios completados</span>
+            <span style={{ fontSize:13, fontWeight:700, color:'#2E9400' }}>{c.done} ejercicios completados</span>
           </div>
         )}
 
         {/* Actions */}
         {special ? (
-          <div style={{ textAlign:'center', padding:'5px 0 2px' }}>
-            <span style={{ display:'inline-block', background:`${c.color}18`, color: c.color, fontSize:11, fontWeight:700, borderRadius:20, padding:'5px 14px', border:`1.5px solid ${c.color}44` }}>
-              Disponible próximamente
-            </span>
+          <div style={{ display:'flex', gap:7 }}>
+            <button
+              onClick={() => navigate('/recursos')}
+              style={{
+                width:'100%', padding:'9px 0', borderRadius:12,
+                border:'none', background: mainColor, color:'#fff',
+                fontSize:15, fontWeight:700, cursor:'pointer',
+                boxShadow:`0 4px 12px ${mainColor}44`,
+              }}>
+              📖 Explorar recursos
+            </button>
           </div>
         ) : !isLocked ? (
           <div style={{ display:'flex', flexDirection:'column', gap:7 }}>
@@ -221,7 +228,7 @@ function LevelCard({ course: c, idx, onTheory, onPractice, special, onDemo }) {
                 onClick={() => onTheory(c.levelKey)}
                 onMouseEnter={(e) => { e.currentTarget.style.background=`${mainColor}22`; e.currentTarget.style.borderColor=mainColor; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background=`${mainColor}0E`; e.currentTarget.style.borderColor=`${mainColor}55`; }}
-                style={{ flex:1, padding:'9px 0', borderRadius:12, border:`2px solid ${mainColor}55`, background:`${mainColor}0E`, color: mainColor, fontSize:12, fontWeight:700, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', gap:5, transition:'all 0.15s' }}
+                style={{ flex:1, padding:'9px 0', borderRadius:12, border:`2px solid ${mainColor}55`, background:`${mainColor}0E`, color: mainColor, fontSize:15, fontWeight:700, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', gap:5, transition:'all 0.15s' }}
               >
                 <IcBook size={13} color={mainColor}/> Teoría
               </button>
@@ -230,7 +237,7 @@ function LevelCard({ course: c, idx, onTheory, onPractice, special, onDemo }) {
                 onMouseDown={() => setPressed(true)}
                 onMouseUp={() => setPressed(false)}
                 onMouseLeave={() => { setPressed(false); }}
-                style={{ flex:1, padding:'9px 0', borderRadius:12, border:'none', background: mainColor, color:'#fff', fontSize:12, fontWeight:800, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', gap:5, boxShadow: pressed ? `0 1px 0 ${mainColor}99` : `0 4px 0 ${mainColor}99`, transform: pressed ? 'translateY(3px)' : 'translateY(0)', transition:'transform 0.1s, box-shadow 0.1s' }}
+                style={{ flex:1, padding:'9px 0', borderRadius:12, border:'none', background: mainColor, color:'#fff', fontSize:15, fontWeight:800, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', gap:5, boxShadow: pressed ? `0 1px 0 ${mainColor}99` : `0 4px 0 ${mainColor}99`, transform: pressed ? 'translateY(3px)' : 'translateY(0)', transition:'transform 0.1s, box-shadow 0.1s' }}
               >
                 <IcPen size={12}/> Practicar
               </button>
@@ -240,7 +247,7 @@ function LevelCard({ course: c, idx, onTheory, onPractice, special, onDemo }) {
                 onClick={onDemo}
                 onMouseEnter={(e) => { e.currentTarget.style.background=`${mainColor}18`; e.currentTarget.style.borderColor=mainColor; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background='transparent'; e.currentTarget.style.borderColor=`${mainColor}44`; }}
-                style={{ width:'100%', padding:'8px 0', borderRadius:12, border:`1.5px dashed ${mainColor}44`, background:'transparent', color: mainColor, fontSize:11, fontWeight:800, cursor:'pointer', letterSpacing:'0.3px', display:'flex', alignItems:'center', justifyContent:'center', gap:5, transition:'background 0.15s, border-color 0.15s' }}
+                style={{ width:'100%', padding:'8px 0', borderRadius:12, border:`1.5px dashed ${mainColor}44`, background:'transparent', color: mainColor, fontSize:14, fontWeight:800, cursor:'pointer', letterSpacing:'0.3px', display:'flex', alignItems:'center', justifyContent:'center', gap:5, transition:'background 0.15s, border-color 0.15s' }}
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <polygon points="5 3 19 12 5 21 5 3"/>
@@ -250,7 +257,7 @@ function LevelCard({ course: c, idx, onTheory, onPractice, special, onDemo }) {
             )}
           </div>
         ) : (
-          <div style={{ textAlign:'center', fontSize:10, color: t.text3, fontWeight:600, padding:'6px 0 2px', lineHeight:1.4 }}>
+          <div style={{ textAlign:'center', fontSize:13, color: t.text3, fontWeight:600, padding:'6px 0 2px', lineHeight:1.4 }}>
             Completa el nivel anterior para desbloquear
           </div>
         )}
@@ -345,7 +352,7 @@ export default function LevelMapScreen() {
             <IcArrowLeft/>
           </button>
           <div>
-            <div style={{ fontSize:10, fontWeight:700, color:'rgba(255,255,255,0.6)', letterSpacing:'1.8px', textTransform:'uppercase', marginBottom:3 }}>
+            <div style={{ fontSize:13, fontWeight:700, color:'rgba(255,255,255,0.6)', letterSpacing:'1.8px', textTransform:'uppercase', marginBottom:3 }}>
               INTEGRA+ — CÁLCULO INTEGRAL
             </div>
             <div style={{ fontSize:18, fontWeight:900, color:'#fff', letterSpacing:'-0.3px' }}>
@@ -358,7 +365,7 @@ export default function LevelMapScreen() {
         <div style={{ background:'rgba(255,255,255,0.18)', borderRadius:6, height:8, overflow:'hidden', marginBottom:6 }}>
           <div style={{ background:'linear-gradient(90deg,#A8FF3A,#58CC02)', height:'100%', borderRadius:6, width: total > 0 ? `${(completados/total)*100}%` : '0%', transition:'width 1.3s cubic-bezier(0.4,0,0.2,1)', boxShadow:'0 0 10px rgba(168,255,58,0.6)' }}/>
         </div>
-        <div style={{ fontSize:12, color:'rgba(255,255,255,0.75)', fontWeight:600 }}>
+        <div style={{ fontSize:15, color:'rgba(255,255,255,0.75)', fontWeight:600 }}>
           {completados} de {total} niveles completados
         </div>
       </div>
@@ -375,7 +382,7 @@ export default function LevelMapScreen() {
 
         {/* Cards grid */}
         <div style={{ padding:'4px 16px 24px' }}>
-          <div style={{ fontSize:11, fontWeight:800, color: t.text3, textTransform:'uppercase', letterSpacing:'1px', marginBottom:14, paddingLeft:2 }}>
+          <div style={{ fontSize:14, fontWeight:800, color: t.text3, textTransform:'uppercase', letterSpacing:'1px', marginBottom:14, paddingLeft:2 }}>
             {loading ? 'Cargando niveles…' : `${total} niveles disponibles`}
           </div>
 

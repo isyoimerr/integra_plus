@@ -13,4 +13,26 @@ export const userController = {
       res.json({ success: true, tema });
     } catch (err) { next(err); }
   },
+
+  updateProfile: async (req, res, next) => {
+    try {
+      const { nombre, foto } = req.body;
+      const updated = await userService.updateProfile(req.userId, { nombre, foto });
+      res.json({ success: true, usuario: { id: updated.usuId, nombre: updated.usuNombre, email: updated.usuCorreo, foto: updated.usuFoto } });
+    } catch (err) { next(err); }
+  },
+
+  getSigma: async (req, res, next) => {
+    try {
+      const sigma = await userService.getSigmaState(req.userId);
+      res.json(sigma);
+    } catch (err) { next(err); }
+  },
+
+  updateSigma: async (req, res, next) => {
+    try {
+      await userService.updateSigmaState(req.userId, req.body);
+      res.json({ success: true });
+    } catch (err) { next(err); }
+  },
 };

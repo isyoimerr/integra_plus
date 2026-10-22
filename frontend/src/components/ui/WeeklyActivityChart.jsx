@@ -29,10 +29,10 @@ const CustomTooltip = ({ active, payload, t }) => {
         padding: '8px 12px',
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
       }}>
-        <p style={{ margin: 0, fontSize: 12, fontWeight: 600, color: t?.text || '#000' }}>
+        <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: t?.text || '#000' }}>
           {payload[0].payload.day}
         </p>
-        <p style={{ margin: '4px 0 0 0', fontSize: 11, color: payload[0].color }}>
+        <p style={{ margin: '4px 0 0 0', fontSize: 14, color: payload[0].color }}>
           {payload[0].name}: {payload[0].value}
         </p>
       </div>
@@ -79,11 +79,11 @@ export default function WeeklyActivityChart({ type = 'bar', showLegend = true })
             <XAxis
               dataKey="day"
               stroke={colors.text}
-              style={{ fontSize: 12, fontWeight: 600 }}
+              style={{ fontSize: 15, fontWeight: 600 }}
             />
             <YAxis
               stroke={colors.text}
-              style={{ fontSize: 11 }}
+              style={{ fontSize: 14 }}
               width={35}
             />
             <Tooltip content={<CustomTooltip t={t} />} cursor={{ fill: 'rgba(0,0,0,0.05)' }} />
@@ -96,11 +96,11 @@ export default function WeeklyActivityChart({ type = 'bar', showLegend = true })
             <XAxis
               dataKey="day"
               stroke={colors.text}
-              style={{ fontSize: 12, fontWeight: 600 }}
+              style={{ fontSize: 15, fontWeight: 600 }}
             />
             <YAxis
               stroke={colors.text}
-              style={{ fontSize: 11 }}
+              style={{ fontSize: 14 }}
               width={35}
             />
             <Tooltip content={<CustomTooltip t={t} />} />
@@ -132,7 +132,7 @@ export default function WeeklyActivityChart({ type = 'bar', showLegend = true })
           gap: 20,
           justifyContent: 'center',
           marginTop: 12,
-          fontSize: 12,
+          fontSize: 15,
           fontWeight: 600,
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>

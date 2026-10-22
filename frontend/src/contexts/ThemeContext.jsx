@@ -1,15 +1,29 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { useAuth } from './AuthContext';
+import { userService } from '../services/user.service';
 import { THEMES } from '../data/themes';
 
 const ThemeContext = createContext(null);
 
 export function ThemeProvider({ children }) {
+  const { user, token } = useAuth();
   const [themeName, setThemeName] = useState(
     () => localStorage.getItem('integra_theme') || 'light'
   );
   const [customAccent, setCustomAccent] = useState(
     () => localStorage.getItem('integra_custom_accent') || '#7E57C2'
   );
+  const restored = useRef(false);
+
+  useEffect(() => {
+    if (user?.tema && !restored.current) {
+      const saved = user.tema;
+      if (['light', 'dark', 'custom'].includes(saved)) {
+        setThemeName(saved);
+      }
+      restored.current = true;
+    }
+  }, [user?.tema]);
 
   useEffect(() => {
     localStorage.setItem('integra_theme', themeName);
@@ -26,8 +40,17 @@ export function ThemeProvider({ children }) {
       setCustomAccent(accent);
     }
     setThemeName(name);
+    if (token && name) {
+      userService.updateTema(token, name).catch(() => {});
+    }
   };
-  const toggleTheme = () => setThemeName((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  const toggleTheme = () => {
+    const next = themeName === 'dark' ? 'light' : 'dark';
+    setThemeName(next);
+    if (token) {
+      userService.updateTema(token, next).catch(() => {});
+    }
+  };
 
   const t =
     themeName === 'custom'

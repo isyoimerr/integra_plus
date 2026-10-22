@@ -5,7 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 import { LEVEL_CONFIG } from '../../data/levelConfig';
 import { exerciseService } from '../../services/exercise.service';
-import { FormulaBlock } from '../../components/ui/Formula';
+import { FormulaBlock, FormulaInline } from '../../components/ui/Formula';
 import SigmaBubble from '../../components/sigma/SigmaBubble';
 import Spinner from '../../components/common/Spinner';
 
@@ -17,7 +17,7 @@ export default function LevelFaseBScreen() {
   const { t } = useTheme();
   const {
     selectedLevel, exerciseIdx, setExerciseIdx,
-    lives, setLives, setLastWrong,
+    lives, setLives, resetLives, setLastWrong,
     currentExercises, setCurrentExercises,
   } = useProgress();
 
@@ -30,23 +30,28 @@ export default function LevelFaseBScreen() {
 
   // Cargar ejercicios desde la DB al montar
   useEffect(() => {
-    if (!token) return;
+    resetLives();
+    setLastWrong(null);
     let cancelled = false;
     const load = async () => {
       setLoadingEx(true);
       try {
+        if (!token || token === 'demo-local') {
+          throw new Error('demo-mode');
+        }
         const data = await exerciseService.getByNivel(token, toDbId(selectedLevel));
         if (!cancelled) {
           setExercises(data);
           setCurrentExercises(data);
         }
       } catch {
-        // fallback: mapear LEVEL_CONFIG al formato API
+        // fallback: mapear LEVEL_CONFIG al formato API para demo/local sin backend
         if (!cancelled) {
           const fallback = lv.exercises.map(e => ({
             id: e.dbId, enunciado: e.q, formula: e.formula,
             opciones: e.opts, pista: e.hint, explicacion: e.explain,
             xpRecompensa: lv.xpPerExercise,
+            correct: e.correct,
           }));
           setExercises(fallback);
           setCurrentExercises(fallback);
@@ -65,28 +70,37 @@ export default function LevelFaseBScreen() {
     if (!selected || !ex) return;
     setVerifying(true);
     try {
-      // Enviar el string real de la opción, no la letra
-      const selectedAnswer = ex.opciones[OPT_IDS.indexOf(selected)];
+      const selectedAnswer = selected;
       let correcto = false;
       let respuestaCorrecta = null;
 
-      if (token) {
-        const res = await exerciseService.verify(token, ex, selectedAnswer).catch(() => null);
-        correcto = res?.correcto ?? false;
-        respuestaCorrecta = res?.respuestaCorrecta ?? null;
+      let res = null;
+      if (token && token !== 'demo-local') {
+        res = await exerciseService.verify(token, ex, selectedAnswer).catch(() => null);
+      }
+
+      if (res) {
+        correcto = res.correcto;
+        respuestaCorrecta = res.respuestaCorrecta;
+      } else {
+        correcto = selected === ex.correct;
+        respuestaCorrecta = ex.opciones?.[OPT_IDS.indexOf(ex.correct)] ?? null;
       }
 
       if (correcto) {
         navigate('/level/result-correct');
       } else {
         setLives(Math.max(0, lives - 1));
+        const explanation = res?.explicacion || res?.explain || ex.explicacion || ex.explain || '';
+        const hintText = res?.pista || res?.hint || ex.pista || ex.hint || '';
         setLastWrong({
-          hint:              ex.pista,
-          explain:           ex.explicacion,
+          hint:              hintText,
+          explain:           explanation,
           formula:           ex.formula,
           opciones:          ex.opciones,
           selectedAnswer,
           respuestaCorrecta,
+          helpUsed: false,
         });
         navigate('/level/result-wrong');
       }
@@ -125,7 +139,7 @@ export default function LevelFaseBScreen() {
           <button onClick={() => navigate('/level/fase-a')}
             style={{ background: 'rgba(255,255,255,0.18)', border: 'none', borderRadius: 10, width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#fff', fontSize: 20, flexShrink: 0 }}>←</button>
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.75)', letterSpacing: '0.5px', fontWeight: 600 }}>{lv.title} · FASE B</div>
+            <div style={{ fontSize: 15, color: 'rgba(255,255,255,0.75)', letterSpacing: '0.5px', fontWeight: 600 }}>{lv.title} · FASE B</div>
             <div style={{ fontSize: 16, fontWeight: 700, color: '#fff', marginTop: 2 }}>Ejercicio {exerciseIdx + 1} de {exercises.length}</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -152,7 +166,7 @@ export default function LevelFaseBScreen() {
 
         {/* Pregunta */}
         <div style={{ background: t.cardBg, borderRadius: 16, padding: '18px 20px', border: `1px solid ${t.cardBorder}`, marginBottom: 14, boxShadow: '0 2px 16px rgba(0,0,0,0.07)' }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: lv.color, textTransform: 'uppercase', letterSpacing: '0.7px', marginBottom: 10 }}>Pregunta {exerciseIdx + 1}</div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: lv.color, textTransform: 'uppercase', letterSpacing: '0.7px', marginBottom: 10 }}>Pregunta {exerciseIdx + 1}</div>
           <div style={{ fontSize: 16, color: t.text2, lineHeight: 1.65, marginBottom: 16 }}>{ex.enunciado}</div>
           <FormulaBlock math={ex.formula} color={lv.color} bgColor={`${lv.color}10`} borderColor={`${lv.color}28`} />
         </div>
@@ -167,7 +181,9 @@ export default function LevelFaseBScreen() {
               <button key={id} onClick={() => setSelected(id)}
                 style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px', borderRadius: 14, border: `2px solid ${sel ? lv.color : t.cardBorder}`, background: sel ? `${lv.color}14` : t.cardBg, cursor: 'pointer', textAlign: 'left', transition: 'all 0.18s', outline: 'none', boxShadow: sel ? `0 4px 16px ${lv.color}22` : 'none' }}>
                 <div style={{ width: 34, height: 34, borderRadius: 10, flexShrink: 0, background: sel ? lv.color : t.progressBg, color: sel ? '#fff' : t.text2, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 14, transition: 'all 0.18s' }}>{id}</div>
-                <span style={{ fontSize: 18, fontWeight: 600, color: sel ? lv.colorDark : t.text, fontFamily: 'Georgia,serif', flex: 1 }}>{opt}</span>
+                <div style={{ fontSize: 18, fontWeight: 600, color: sel ? lv.colorDark : t.text, fontFamily: 'Georgia,serif', flex: 1, minWidth: 0 }}>
+                  <FormulaInline math={opt} />
+                </div>
                 {sel && <div style={{ color: lv.color, fontSize: 20 }}>◉</div>}
               </button>
             );

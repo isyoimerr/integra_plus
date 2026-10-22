@@ -113,9 +113,14 @@ export default function LoginScreen() {
     if (!/\S+@\S+\.\S+/.test(email.trim())) { show('Formato de email inválido', 'warn'); return; }
     setLoading(true);
     try {
-      await login(email.trim(), pass);
-      const done = localStorage.getItem('integra_onboarding_done');
-      navigate(done ? '/dashboard' : '/onboarding');
+      const usuario = await login(email.trim(), pass);
+      if (usuario?.rol === 'docente') {
+        navigate('/teacher');
+      } else if (usuario?.onboardingDone) {
+        navigate('/dashboard');
+      } else {
+        navigate('/onboarding');
+      }
     } catch (err) {
       setSigmaKey('error');
       show(err.message || 'Credenciales incorrectas', 'error');
@@ -350,7 +355,7 @@ export default function LoginScreen() {
               <SigmaLogo state={sigmaState} size={40} />
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 10, fontWeight: 800, color: '#69F0AE', letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: 3 }}>SIGMA</div>
+              <div style={{ fontSize: 13, fontWeight: 800, color: '#69F0AE', letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: 3 }}>SIGMA</div>
               <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', lineHeight: 1.5, transition: 'all 0.3s' }}>
                 {SIGMA_MESSAGES[sigmaKey] || SIGMA_MESSAGES.idle}
               </div>
@@ -390,7 +395,7 @@ export default function LoginScreen() {
             {/* Forgot */}
             <div style={{ textAlign: 'right', marginTop: -6 }}>
               <button onClick={() => navigate('/forgot-password')}
-                style={{ background: 'none', border: 'none', color: '#69F0AE', fontSize: 12, fontWeight: 600, cursor: 'pointer', padding: 0, opacity: 0.85, transition: 'opacity 0.2s' }}
+                style={{ background: 'none', border: 'none', color: '#69F0AE', fontSize: 15, fontWeight: 600, cursor: 'pointer', padding: 0, opacity: 0.85, transition: 'opacity 0.2s' }}
                 onMouseEnter={e => e.target.style.opacity = '1'}
                 onMouseLeave={e => e.target.style.opacity = '0.85'}
               >
@@ -426,7 +431,7 @@ export default function LoginScreen() {
           {/* Back to landing */}
           <div style={{ textAlign: 'center', marginTop: 22 }}>
             <button onClick={() => navigate('/')}
-              style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', fontSize: 12, cursor: 'pointer', transition: 'color 0.2s', padding: 0 }}
+              style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', fontSize: 15, cursor: 'pointer', transition: 'color 0.2s', padding: 0 }}
               onMouseEnter={e => e.target.style.color = 'rgba(255,255,255,0.6)'}
               onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.3)'}
             >

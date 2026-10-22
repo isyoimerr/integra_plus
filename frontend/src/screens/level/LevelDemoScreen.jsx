@@ -5,6 +5,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
+import { Explanation } from '../../components/ui/Explanation';
 import { FormulaBlock, FormulaInline } from '../../components/ui/Formula';
 import SigmaBubble from '../../components/sigma/SigmaBubble';
 import SigmaLogo from '../../components/sigma/SigmaLogo';
@@ -160,10 +161,10 @@ function TheoryPhase({ onStart }) {
         <div style={{ position:'absolute', left:-16, bottom:-20, width:80, height:80, borderRadius:'50%', background:'rgba(255,255,255,0.06)' }}/>
         <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:14, zIndex:1, position:'relative' }}>
           <div style={{ background:'rgba(255,255,255,0.2)', borderRadius:12, padding:'4px 12px', display:'inline-flex', alignItems:'center', gap:6 }}>
-            <span style={{ fontSize:11, color:'rgba(255,255,255,0.9)', fontWeight:700, letterSpacing:'0.6px', textTransform:'uppercase' }}>Demo · Nivel 0</span>
+            <span style={{ fontSize:14, color:'rgba(255,255,255,0.9)', fontWeight:700, letterSpacing:'0.6px', textTransform:'uppercase' }}>Demo · Nivel 0</span>
           </div>
         </div>
-        <div style={{ fontSize:11, color:'rgba(255,255,255,0.65)', fontWeight:700, textTransform:'uppercase', letterSpacing:'1.5px', marginBottom:4 }}>REPASO DE BASES</div>
+        <div style={{ fontSize:14, color:'rgba(255,255,255,0.65)', fontWeight:700, textTransform:'uppercase', letterSpacing:'1.5px', marginBottom:4 }}>REPASO DE BASES</div>
         <div style={{ fontSize:22, fontWeight:900, color:'#fff', letterSpacing:'-0.3px', marginBottom:4 }}>
           Fracciones, Potencias y Derivadas
         </div>
@@ -179,18 +180,18 @@ function TheoryPhase({ onStart }) {
 
         {/* Gráfica */}
         <div style={{ background: t.cardBg, borderRadius:16, padding:'16px 18px', border:`1.5px solid ${t.cardBorder}`, marginBottom:14, boxShadow:'0 2px 12px rgba(0,0,0,0.06)' }}>
-          <div style={{ fontSize:11, fontWeight:700, color: c.color, textTransform:'uppercase', letterSpacing:'0.8px', marginBottom:6 }}>Visualización</div>
+          <div style={{ fontSize:14, fontWeight:700, color: c.color, textTransform:'uppercase', letterSpacing:'0.8px', marginBottom:6 }}>Visualización</div>
           <div style={{ fontSize:16, fontWeight:800, color: t.text, marginBottom:10 }}>Función y su derivada</div>
           <div style={{ background: t.appBg, borderRadius:12, padding:12, border:`1px solid ${t.cardBorder}` }}>
             <LevelGraph levelId={0}/>
           </div>
-          <div style={{ fontSize:12, color: t.text3, marginTop:8, lineHeight:1.5 }}>
+          <div style={{ fontSize:15, color: t.text3, marginTop:8, lineHeight:1.5 }}>
             La línea sólida es f(x)=x². La discontinua es su derivada f'(x)=2x. La integral es la operación inversa a la derivada.
           </div>
         </div>
 
         {/* Conceptos — acordeón */}
-        <div style={{ fontSize:11, fontWeight:800, color: t.text3, textTransform:'uppercase', letterSpacing:'1px', marginBottom:12, paddingLeft:2 }}>
+        <div style={{ fontSize:14, fontWeight:800, color: t.text3, textTransform:'uppercase', letterSpacing:'1px', marginBottom:12, paddingLeft:2 }}>
           3 conceptos clave
         </div>
         {c.concepts.map((concept, i) => (
@@ -229,7 +230,7 @@ function TheoryPhase({ onStart }) {
                 </div>
                 <FormulaBlock math={concept.extra}/>
                 <div style={{ marginTop:10, background:`${concept.color}0E`, borderRadius:10, padding:'10px 14px', border:`1px solid ${concept.color}30` }}>
-                  <span style={{ fontSize:11, fontWeight:700, color: concept.color, textTransform:'uppercase', letterSpacing:'0.5px' }}>Tip: </span>
+                  <span style={{ fontSize:14, fontWeight:700, color: concept.color, textTransform:'uppercase', letterSpacing:'0.5px' }}>Tip: </span>
                   <span style={{ fontSize:13, color: t.text2 }}>{concept.tip}</span>
                 </div>
               </div>
@@ -258,7 +259,7 @@ function TheoryPhase({ onStart }) {
    PHASE 1 — PRÁCTICA
 ═══════════════════════════════════════════════════════════════════════════ */
 function PracticePhase({ onFinish }) {
-  const { t } = useTheme();
+  const { t, themeName } = useTheme();
   const [idx,      setIdx]      = useState(0);
   const [selected, setSelected] = useState(null);
   const [state,    setState]    = useState('idle'); // idle | correct | wrong
@@ -308,7 +309,7 @@ function PracticePhase({ onFinish }) {
       {/* Header */}
       <div style={{ background:`linear-gradient(150deg,${topColor}DD,${topColor})`, padding:'16px 20px 14px', flexShrink:0, boxShadow:'0 4px 16px rgba(0,0,0,0.15)' }}>
         <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:10 }}>
-          <div style={{ fontSize:11, fontWeight:800, color:'rgba(255,255,255,0.8)', textTransform:'uppercase', letterSpacing:'1px' }}>
+          <div style={{ fontSize:14, fontWeight:800, color:'rgba(255,255,255,0.8)', textTransform:'uppercase', letterSpacing:'1px' }}>
             {ex.topic} · {idx+1} / {total}
           </div>
           <div style={{ display:'flex', gap:4 }}>
@@ -317,8 +318,8 @@ function PracticePhase({ onFinish }) {
         </div>
         <ProgressBar value={((idx) / total) * 100} color="rgba(255,255,255,0.6)" height={6}/>
         <div style={{ display:'flex', justifyContent:'space-between', marginTop:4 }}>
-          <span style={{ fontSize:10, color:'rgba(255,255,255,0.7)', fontWeight:600 }}>Progreso</span>
-          <span style={{ fontSize:11, fontWeight:800, color:'rgba(255,255,255,0.95)' }}>+{score} XP</span>
+          <span style={{ fontSize:13, color:'rgba(255,255,255,0.7)', fontWeight:600 }}>Progreso</span>
+          <span style={{ fontSize:14, fontWeight:800, color:'rgba(255,255,255,0.95)' }}>+{score} XP</span>
         </div>
       </div>
 
@@ -414,18 +415,30 @@ function PracticePhase({ onFinish }) {
         )}
         {showHint && state === 'idle' && (
           <div style={{ background:`${topColor}0E`, border:`1.5px solid ${topColor}35`, borderRadius:12, padding:'12px 16px', marginBottom:12, animation:'fadeUp 0.2s ease' }}>
-            <div style={{ fontSize:11, fontWeight:800, color: topColor, textTransform:'uppercase', letterSpacing:'0.6px', marginBottom:4 }}>Pista</div>
+            <div style={{ fontSize:14, fontWeight:800, color: topColor, textTransform:'uppercase', letterSpacing:'0.6px', marginBottom:4 }}>Pista</div>
             <div style={{ fontSize:13, color: t.text2, lineHeight:1.6 }}>{ex.hint}</div>
           </div>
         )}
 
         {/* Explicación tras responder */}
         {state !== 'idle' && (
-          <div style={{ background: state==='correct' ? '#E8F5E9' : '#FFF3E0', border:`1.5px solid ${state==='correct' ? '#56CC02' : '#FF9600'}`, borderRadius:14, padding:'14px 16px', marginBottom:16, animation:'popIn 0.3s ease' }}>
-            <div style={{ fontSize:11, fontWeight:800, color: state==='correct'?'#2E9400':'#E67E22', textTransform:'uppercase', letterSpacing:'0.6px', marginBottom:6 }}>
+          <div style={{
+            background: state==='correct'
+              ? (themeName === 'dark' ? 'rgba(86,204,2,0.14)' : '#E8F5E9')
+              : (themeName === 'dark' ? 'rgba(255,152,0,0.14)' : '#FFF3E0'),
+            border: `1.5px solid ${state==='correct'
+              ? (themeName === 'dark' ? 'rgba(86,204,2,0.32)' : '#56CC02')
+              : (themeName === 'dark' ? 'rgba(255,152,0,0.3)' : '#FF9600')}`,
+            borderRadius:14, padding:'14px 16px', marginBottom:16, animation:'popIn 0.3s ease'
+          }}>
+            <div style={{ fontSize:14, fontWeight:800, color: state==='correct' ? (themeName === 'dark' ? '#B9F6CA' : '#2E9400') : (themeName === 'dark' ? '#FFD180' : '#E67E22'), textTransform:'uppercase', letterSpacing:'0.6px', marginBottom:6 }}>
               {state==='correct' ? '¡Correcto!' : 'Respuesta explicada'}
             </div>
-            <FormulaBlock math={ex.explain}/>
+            <Explanation
+              text={ex.explain}
+              bgColor={themeName === 'dark' ? 'rgba(255,255,255,0.05)' : (state==='correct' ? '#E8F5E9' : '#FFF3E0')}
+              borderColor={themeName === 'dark' ? 'rgba(255,255,255,0.12)' : (state==='correct' ? '#56CC02' : '#FF9600')}
+            />
           </div>
         )}
 
@@ -482,7 +495,7 @@ function ResultPhase({ score, results, lives, onRetry }) {
   return (
     <div style={{ flex:1, display:'flex', flexDirection:'column', overflow:'hidden', animation:'fadeUp 0.4s ease' }}>
       <div style={{ background: passed ? 'linear-gradient(150deg,#1B5E20,#2E7D32)' : 'linear-gradient(150deg,#B71C1C,#D32F2F)', padding:'24px 22px 22px', flexShrink:0, boxShadow:'0 4px 20px rgba(0,0,0,0.2)' }}>
-        <div style={{ fontSize:12, fontWeight:700, color:'rgba(255,255,255,0.7)', textTransform:'uppercase', letterSpacing:'1.5px', marginBottom:4 }}>
+        <div style={{ fontSize:15, fontWeight:700, color:'rgba(255,255,255,0.7)', textTransform:'uppercase', letterSpacing:'1.5px', marginBottom:4 }}>
           Resultado · Nivel 0
         </div>
         <div style={{ fontSize:22, fontWeight:900, color:'#fff' }}>
@@ -510,7 +523,7 @@ function ResultPhase({ score, results, lives, onRetry }) {
         </div>
 
         {/* Detail per exercise */}
-        <div style={{ fontSize:11, fontWeight:800, color: t.text3, textTransform:'uppercase', letterSpacing:'1px', marginBottom:10 }}>
+        <div style={{ fontSize:14, fontWeight:800, color: t.text3, textTransform:'uppercase', letterSpacing:'1px', marginBottom:10 }}>
           Detalle por ejercicio
         </div>
         <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
@@ -522,10 +535,10 @@ function ResultPhase({ score, results, lives, onRetry }) {
                   {r.correct ? <IcCheck size={16}/> : <IcX/>}
                 </div>
                 <div style={{ flex:1, minWidth:0 }}>
-                  <div style={{ fontSize:11, fontWeight:700, color: TOPIC_COLOR[ex.topic]||LEVEL.color, textTransform:'uppercase', letterSpacing:'0.5px' }}>{ex.topic}</div>
-                  <div style={{ fontSize:12, color: t.text2, fontWeight:600 }}>{ex.q}</div>
+                  <div style={{ fontSize:14, fontWeight:700, color: TOPIC_COLOR[ex.topic]||LEVEL.color, textTransform:'uppercase', letterSpacing:'0.5px' }}>{ex.topic}</div>
+                  <div style={{ fontSize:15, color: t.text2, fontWeight:600 }}>{ex.q}</div>
                 </div>
-                <span style={{ fontSize:11, fontWeight:800, color: r.correct?'#2E9400':'#C62828' }}>
+                <span style={{ fontSize:14, fontWeight:800, color: r.correct?'#2E9400':'#C62828' }}>
                   {r.correct ? '+15 XP' : '−♥'}
                 </span>
               </div>

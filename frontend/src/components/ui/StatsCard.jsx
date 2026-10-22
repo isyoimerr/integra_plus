@@ -55,7 +55,7 @@ export default function StatsCard({ label, value, subtext, type = 'puntos', onCl
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div style={{ flex: 1 }}>
           <div style={{
-            fontSize: 12,
+            fontSize: 15,
             fontWeight: 700,
             color: 'rgba(255,255,255,0.85)',
             textTransform: 'uppercase',
@@ -75,7 +75,7 @@ export default function StatsCard({ label, value, subtext, type = 'puntos', onCl
             {value}
           </div>
           <div style={{
-            fontSize: 11,
+            fontSize: 14,
             color: 'rgba(255,255,255,0.8)',
             fontWeight: 500,
           }}>

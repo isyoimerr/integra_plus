@@ -1,12 +1,14 @@
 import { useLocation } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
 import LeftNav from './LeftNav';
+import FloatingAssistant from '../assistant/FloatingAssistant';
 
 const BARE_PATHS = ['/', '/login', '/forgot-password', '/reset-password', '/onboarding'];
 
 const NO_SIDEBAR = [
   '/', '/login', '/forgot-password', '/reset-password', '/onboarding',
   '/select-role', '/register', '/register-success', '/verify-email', '/auth/callback',
+  '/teacher', '/admin', '/exercise-editor',
 ];
 
 export default function PhoneShell({ children }) {
@@ -30,6 +32,7 @@ export default function PhoneShell({ children }) {
           {children}
         </main>
       </div>
+      <FloatingAssistant />
     </div>
   );
 }

@@ -11,9 +11,11 @@ export default function LevelCompleteScreen() {
   const navigate = useNavigate();
   const { token } = useAuth();
   const { t } = useTheme();
-  const { selectedLevel, lives, completeLevel, setLives, currentExercises } = useProgress();
+  const { selectedLevel, lives, completeLevel, setLives, currentExercises, lastWrong } = useProgress();
   const lv = LEVEL_CONFIG[selectedLevel] || LEVEL_CONFIG[0];
-  const stars = lives >= 3 ? 3 : lives >= 1 ? 2 : 1;
+  const helpUsed = lastWrong?.helpUsed;
+  const baseStars = lives >= 3 ? 3 : lives >= 1 ? 2 : 1;
+  const stars = Math.max(0, baseStars - (helpUsed ? 1 : 0));
   const exerciseCount = currentExercises.length || lv.exercises.length;
   const xp = currentExercises.reduce((s, e) => s + (e.xpRecompensa || 15), 0) || lv.xpTotal;
   const [show, setShow] = useState(false);
@@ -61,6 +63,13 @@ export default function LevelCompleteScreen() {
 
         <div style={a(0.65)}><SigmaBubble state="celebracion">{lv.sigmaComplete}</SigmaBubble></div>
 
+        {helpUsed && (
+          <div style={{ background: '#FFF8E1', borderRadius: 16, padding: '16px 18px', border: '1px solid #FFE082', marginBottom: 18, color: '#6D4C41', boxShadow: '0 4px 20px rgba(255,193,7,0.15)', ...a(0.7) }}>
+            <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>Atención:</div>
+            <div style={{ fontSize: 15, lineHeight: 1.7 }}>Usaste ayuda de SIGMA en este nivel. Por eso tu calificación final baja una estrella en el ranking.</div>
+          </div>
+        )}
+
         <div style={{ background: t.appBg, borderRadius: 16, padding: '18px 20px', border: `1.5px solid ${lv.color}30`, marginBottom: 18, boxShadow: `0 4px 20px ${lv.color}18`, ...a(0.75) }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 10, textAlign: 'center' }}>
             {[
@@ -70,7 +79,7 @@ export default function LevelCompleteScreen() {
             ].map((s, i) => (
               <div key={i} style={{ padding: '14px 8px', background: `${lv.color}10`, borderRadius: 12 }}>
                 <div style={{ fontSize: 18, fontWeight: 700, color: lv.color }}>{s.val}</div>
-                <div style={{ fontSize: 12, color: t.text3, marginTop: 4, fontWeight: 600 }}>{s.label}</div>
+                <div style={{ fontSize: 15, color: t.text3, marginTop: 4, fontWeight: 600 }}>{s.label}</div>
               </div>
             ))}
           </div>
