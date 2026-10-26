@@ -71,13 +71,14 @@ function FloatingLabel({ id, label, type = 'text', value, onChange, onKeyDown, a
 
 export default function LoginScreen() {
   const navigate  = useNavigate();
-  const { login, loginLocal } = useAuth();
+  const { login, loginLocal, loginWithProvider } = useAuth();
   const { show, ToastContainer } = useToast();
 
   const [email,    setEmail]   = useState('');
   const [pass,     setPass]    = useState('');
   const [showPw,   setShowPw]  = useState(false);
   const [loading,  setLoading] = useState(false);
+  const [oauthLoading, setOauthLoading] = useState('');
   const [isDemo,   setIsDemo]  = useState(false);
   const [particles, setParticles] = useState([]);
   const [sigmaKey, setSigmaKey]  = useState('idle');
@@ -136,6 +137,16 @@ export default function LoginScreen() {
       loginLocal({ nombre: 'Demo', email: 'demo@integra.local', rol: 'estudiante', puntos: 0, racha: 0 });
       navigate('/onboarding');
     } finally { setIsDemo(false); }
+  };
+
+  const doOAuthLogin = async (provider) => {
+    setOauthLoading(provider);
+    try {
+      await loginWithProvider(provider);
+    } catch (err) {
+      show(err.message || `No se pudo iniciar sesión con ${provider}`, 'error');
+      setOauthLoading('');
+    }
   };
 
   return (
@@ -413,6 +424,14 @@ export default function LoginScreen() {
 
             {/* Divider */}
             <div className="divider-text">o</div>
+
+            <button className="btn-ghost" onClick={() => doOAuthLogin('google')} disabled={!!oauthLoading}>
+              {oauthLoading === 'google' ? 'Conectando con Google…' : 'Continuar con Google'}
+            </button>
+
+            <button className="btn-ghost" onClick={() => doOAuthLogin('apple')} disabled={!!oauthLoading}>
+              {oauthLoading === 'apple' ? 'Conectando con Apple…' : 'Continuar con Apple'}
+            </button>
 
             {/* Demo */}
             <button className="btn-ghost" onClick={doDemo} disabled={isDemo} aria-busy={isDemo}>

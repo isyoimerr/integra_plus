@@ -18,9 +18,13 @@ const startServer = async () => {
     console.log('✅ Conexión a la base de datos MySQL establecida');
   } catch (err) {
     console.error('❌ No se puede conectar a la base de datos:', err.message);
-    process.exit(1);
+    console.warn('⚠️ El backend iniciará de todos modos; las rutas que dependen de BD pueden devolver 503 hasta que MySQL esté disponible.');
   } finally {
-    await prisma.$disconnect();
+    try {
+      await prisma.$disconnect();
+    } catch {
+      // Ignorar errores de cierre en el chequeo inicial.
+    }
   }
 
   app.listen(PORT, () => {

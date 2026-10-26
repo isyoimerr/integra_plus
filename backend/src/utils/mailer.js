@@ -1,14 +1,25 @@
 import nodemailer from 'nodemailer';
 
 function createTransporter() {
+  const smtpUser = process.env.SMTP_USER || process.env.SMTP_EMAIL;
+  const smtpPass = process.env.SMTP_PASS || process.env.SMTP_PASSWORD;
+
   if (process.env.SMTP_HOST) {
     return nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT) || 587,
       secure: false,
-      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+      auth: { user: smtpUser, pass: smtpPass },
     });
   }
+
+  if (smtpUser && smtpPass) {
+    return nodemailer.createTransport({
+      service: 'gmail',
+      auth: { user: smtpUser, pass: smtpPass },
+    });
+  }
+
   // Sin SMTP configurado: modo dev (Ethereal auto-account)
   return null;
 }
@@ -31,13 +42,16 @@ export async function sendOtpEmail(email, code) {
     </div>`;
 
   if (!transporter) {
+    if (process.env.NODE_ENV !== 'development') {
+      throw new Error('Servicio de correo no configurado');
+    }
     // Modo dev: imprime en consola
     console.log(`\n📧 OTP para ${email}: ${code}\n`);
     return;
   }
 
   await transporter.sendMail({
-    from: `"INTEGRA+" <${process.env.SMTP_USER}>`,
+    from: `"INTEGRA+" <${process.env.SMTP_USER || process.env.SMTP_EMAIL}>`,
     to: email,
     subject: `${code} — Tu código de verificación INTEGRA+`,
     html,
@@ -63,12 +77,15 @@ export async function sendResetEmail(email, code) {
     </div>`;
 
   if (!transporter) {
+    if (process.env.NODE_ENV !== 'development') {
+      throw new Error('Servicio de correo no configurado');
+    }
     console.log(`\n🔑 RESET para ${email}: ${code}\n`);
     return;
   }
 
   await transporter.sendMail({
-    from: `"INTEGRA+" <${process.env.SMTP_USER}>`,
+    from: `"INTEGRA+" <${process.env.SMTP_USER || process.env.SMTP_EMAIL}>`,
     to: email,
     subject: `${code} — Restablecer contraseña INTEGRA+`,
     html,
